@@ -15,7 +15,7 @@ namespace TP214E.Pages.Tests
         public void VerificationCasEnvoieRetourneTrueSiAlimentNull()
         {
            
-            bool resultat = PageAliment.VerificationCasEnvoie(null);
+            bool resultat = PageAliment.VerificationCasEnvoie(null);//
 
             Assert.IsTrue(resultat);
         }
