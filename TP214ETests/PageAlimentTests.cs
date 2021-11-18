@@ -29,5 +29,11 @@ namespace TP214E.Pages.Tests
 
             Assert.IsFalse(resultat);
         }
+
+        [TestMethod()]
+        public void testTest()
+        {
+            Assert.Fail();
+        }
     }
 }
