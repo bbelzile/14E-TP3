@@ -1,0 +1,31 @@
+[{
+  "_id": {
+    "$oid": "618ed6a7dfe4298374b483db"
+  },
+  "Nom": "BigMac",
+  "Prix": 55.3,
+  "AlimentsQuantites": {
+    "tomate": 1,
+    "patate": 2,
+    "boulette": 2,
+    "laitue": 1,
+    "pain": 3,
+    "sauce": 1,
+    "cornichon": 1
+  }
+},{
+  "_id": {
+    "$oid": "618ed871dfe4298374b483dc"
+  },
+  "Nom": "Inter",
+  "Prix": 18.3,
+  "AlimentsQuantites": {
+    "tomate": 1,
+    "patate": 2,
+    "boulette": 1,
+    "laitue": 1,
+    "pain": 2,
+    "sauce": 1,
+    "oignon frit": 1
+  }
+}]

@@ -1,0 +1,67 @@
+[{
+  "_id": {
+    "$oid": "618ec9ff845d398ee2800a85"
+  },
+  "Nom": "tomate",
+  "Quantite": 4,
+  "Unite": "Boite",
+  "ExpireLe": {
+    "$date": "2021-12-03T05:00:00Z"
+  }
+},{
+  "_id": {
+    "$oid": "618ed8c7dfe4298374b483e0"
+  },
+  "Nom": "patate",
+  "Quantite": 4,
+  "Unite": "Boite",
+  "ExpireLe": "2021-12-03T05:00:00.000+00:00"
+},{
+  "_id": {
+    "$oid": "618ed938dfe4298374b483e1"
+  },
+  "Nom": "boulette",
+  "Quantite": 4,
+  "Unite": "Boite",
+  "ExpireLe": "2021-12-03T05:00:00.000+00:00"
+},{
+  "_id": {
+    "$oid": "618ed97ddfe4298374b483e2"
+  },
+  "Nom": "laitue",
+  "Quantite": 4,
+  "Unite": "Boite",
+  "ExpireLe": "2021-12-03T05:00:00.000+00:00"
+},{
+  "_id": {
+    "$oid": "618ed989dfe4298374b483e3"
+  },
+  "Nom": "pain",
+  "Quantite": 4,
+  "Unite": "Boite",
+  "ExpireLe": "2021-12-03T05:00:00.000+00:00"
+},{
+  "_id": {
+    "$oid": "618ed993dfe4298374b483e4"
+  },
+  "Nom": "sauce",
+  "Quantite": 4,
+  "Unite": "Boite",
+  "ExpireLe": "2021-12-03T05:00:00.000+00:00"
+},{
+  "_id": {
+    "$oid": "618ed99ddfe4298374b483e5"
+  },
+  "Nom": "cornichon",
+  "Quantite": 4,
+  "Unite": "pot",
+  "ExpireLe": "2021-12-03T05:00:00.000+00:00"
+},{
+  "_id": {
+    "$oid": "618ed9dbdfe4298374b483eb"
+  },
+  "Nom": "oignon frit",
+  "Quantite": 4,
+  "Unite": "Boite",
+  "ExpireLe": "2021-12-03T05:00:00.000+00:00"
+}]
