@@ -23,8 +23,6 @@ jobs:
 
     env:
       Solution_Name: TP214E                         # Replace with your solution name, i.e. MyWpfApp.sln.
-      Wap_Project_Directory: TP214E/TP214E.csproj    # Replace with the Wap project directory relative to the solution, i.e. MyWpfApp.Package.
-      Wap_Project_Path: your-wap-project-path                   # Replace with the path to your Wap project, i.e. MyWpf.App.Package\MyWpfApp.Package.wapproj.
       Project_Path: TP214E/TP214E.csproj
 
     steps:
