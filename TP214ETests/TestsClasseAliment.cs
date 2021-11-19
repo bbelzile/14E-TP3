@@ -160,7 +160,7 @@ namespace TP214E.Pages.Tests
         }
 
         [TestMethod()]
-        public void VerificationSiTextPasVideRetournFalseSiEnvoieChaineVide()
+        public void VerificationSiTextPasVideRetournFalseSiEnvoieChaineVide()//
         {
             bool resultat = Aliment.VerificationSiTextPasVide("");
 
