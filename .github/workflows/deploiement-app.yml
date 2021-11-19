@@ -3,11 +3,15 @@ name: deploiement-app
 
 on:
   push:
-    branches: [ master ]
-    #tags: "TP3-V*"
+    branches: 
+      - master
+    tags: 
+      - TP3-V*
   pull_request:
-    branches: [ master ]
-    #tags: "TP3-V*"
+    branches: 
+      - master
+    tags: 
+      - TP3-V*
       
 
 jobs:
