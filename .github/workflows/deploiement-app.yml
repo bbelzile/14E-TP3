@@ -69,5 +69,5 @@ jobs:
     - uses: csexton/release-asset-action@v2
       with:
         github-token: ${{ secrets.GITHUB_TOKEN }}
-        pattern: ${{env.Solution_Name}}/bin/Release/netcoreapp3.1/publish/*.exe
+        pattern: TP214E/bin/Release/netcoreapp3.1/win-x64/publish/TP214E.exe
         release-url: ${{ steps.create_release.outputs.upload_url }}
