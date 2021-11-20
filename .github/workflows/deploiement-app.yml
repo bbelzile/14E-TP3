@@ -22,11 +22,11 @@ jobs:
       matrix:
         configuration: [Release]
 
-    runs-on: windows-latest  # For a list of available runner types, refer to
-                             # https://help.github.com/en/actions/reference/workflow-syntax-for-github-actions#jobsjob_idruns-on
+    runs-on: windows-latest  
+                             
 
     env:
-      Solution_Name: TP214E                         # Replace with your solution name, i.e. MyWpfApp.sln.
+      Solution_Name: TP214E   
       Project_Path: TP214E/TP214E.csproj
 
     steps:
@@ -55,7 +55,7 @@ jobs:
       run: dotnet test
       
     - name: Publish the application
-      run: dotnet publish ${{ env.Project_Path }} -c Release --self-contained -r win-x64 -p:PublishSingleFile=true --no-build
+      run: dotnet publish ${{ env.Project_Path }} -c Release --self-contained -p:PublishSingleFile=true --no-build
       
     - name: Create a release  
     - uses: actions/create-release@v1
@@ -69,5 +69,5 @@ jobs:
     - uses: csexton/release-asset-action@v2
       with:
         github-token: ${{ secrets.GITHUB_TOKEN }}
-        pattern: ${{env.Solution_Name}}/bin/Release/netcoreapp3.1/win-x64/publish/*.exe
+        pattern: ${{env.Solution_Name}}/bin/Release/netcoreapp3.1/publish/*.exe
         release-url: ${{ steps.create_release.outputs.upload_url }}
