@@ -121,7 +121,7 @@ namespace TP214E.Pages
 
         public void PreviewQuatiteTextInput(object sender, TextCompositionEventArgs e)
         {
-            e.Handled = !Aliment.TextContienQueDesChiffre(e.Text);
+            e.Handled = !UtilitaireVerificationFormulaire.TextContienQueDesChiffre(e.Text);
         }
 
     }

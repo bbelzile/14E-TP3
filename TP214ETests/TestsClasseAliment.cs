@@ -13,31 +13,6 @@ namespace TP214E.Pages.Tests
     {
 
         [TestMethod()]
-        public void SontDesChiffreTestRetournTrueSiEnvoie3()
-        {
-            bool resultat = Aliment.TextContienQueDesChiffre("3");
-
-
-            Assert.IsTrue(resultat);
-        }
-
-        [TestMethod()]
-        public void SontDesChiffreTestRetournTrueSiEnvoieLongNombre()
-        {
-            bool resultat = Aliment.TextContienQueDesChiffre("312312312");
-
-            Assert.IsTrue(resultat);
-        }
-
-        [TestMethod()]
-        public void SontDesChiffreTestRetournFalseSiEnvoieDesLettres()
-        {
-            bool resultat = Aliment.TextContienQueDesChiffre("asdasd");
-
-            Assert.IsFalse(resultat);
-        }
-
-        [TestMethod()]
         [ExpectedException(typeof(ArgumentException), "Le champ date est vide.")]
         public void VerificationValeurDateEchouSiValeurChampVide()
         {
@@ -149,22 +124,6 @@ namespace TP214E.Pages.Tests
 
             Assert.AreEqual(unite, aliment.Unite);
 
-        }
-
-        [TestMethod()]
-        public void VerificationSiPasTextVideRetournTrueSiEnvoieChaineNormale()
-        {
-            bool resultat = Aliment.VerificationSiTextPasVide("asdasd");
-
-            Assert.IsTrue(resultat);
-        }
-
-        [TestMethod()]
-        public void VerificationSiTextPasVideRetournFalseSiEnvoieChaineVide()
-        {
-            bool resultat = Aliment.VerificationSiTextPasVide("");
-
-            Assert.IsFalse(resultat);
         }
 
     }
