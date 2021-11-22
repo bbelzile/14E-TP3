@@ -111,13 +111,14 @@ namespace TP214E.Data
         {
             if (UtilitaireVerificationFormulaire.VerificationSiTextPasVide(valeurAVerifier))
             {
-                if (UtilitaireVerificationFormulaire.TextContienQueDesChiffre(valeurAVerifier))
+                try
                 {
-                    _prix = int.Parse(valeurAVerifier);
+                    _prix = decimal.Parse(valeurAVerifier);
                 }
-                else
+                catch
                 {
                     throw new ArgumentException("Le champ prix doit comporter que des nombres.");
+
                 }
             }
             else
@@ -135,7 +136,7 @@ namespace TP214E.Data
 
                 _categorie = categorie;
 
-            } catch (Exception erreur)
+            } catch
             {
                 throw new ArgumentException("La categorie sélectionnée est invalide.");
             }

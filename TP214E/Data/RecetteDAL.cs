@@ -35,5 +35,19 @@ namespace TP214E.Data
             }
             return recettes;
         }
+
+        public bool CreerRecette(Recette recetteACreer)
+        {
+            try
+            {
+                _collectionRecette.InsertOne(recetteACreer);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Impossible de se connecter à la base de données " + ex.Message, "Erreur", MessageBoxButton.OK, MessageBoxImage.Error);
+                return false;
+            }
+            return true;
+        }
     }
 }

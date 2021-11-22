@@ -81,20 +81,30 @@
                     <RowDefinition Height="8*"></RowDefinition>
                     <RowDefinition Height="*"></RowDefinition>
                 </Grid.RowDefinitions>
-                <Button x:Name="btnAjouterAliments" Grid.Row="0" Content="Ajouter des aliments"
+                <StackPanel Grid.Row="0">
+                    <Button x:Name="btnAjouterAliments"  Content="Ajouter des aliments"
                         Click="btnAjouterAliment_Click"
                         VerticalAlignment="Top" HorizontalAlignment="Stretch" Margin="2,2,2,0" RenderTransformOrigin="0.5,0.5">
-                    <Button.Style>
-                        <Style BasedOn="{StaticResource survolBoutonPrincipal}" TargetType="{x:Type Button}" />
-                    </Button.Style>
-                </Button>
-
+                        <Button.Style>
+                            <Style BasedOn="{StaticResource survolBoutonPrincipal}" TargetType="{x:Type Button}" />
+                        </Button.Style>
+                    </Button>
+                    <Button x:Name="btnAjouterRecette" Margin="2,10,2,2" Content="Ajouter des recette"
+                    
+                    VerticalAlignment="Top" Click="btnAjouterRecette_Click">
+                        <Button.Style>
+                            <Style BasedOn="{StaticResource survolBoutonPrincipal}" TargetType="{x:Type Button}" />
+                        </Button.Style>
+                    </Button>
+                </StackPanel>
+                
                 <Button x:Name="btnRetour" Content="Retour" Grid.Row="1" Click="ButtonRetour_Click"
                         VerticalAlignment="Bottom" Margin="2,0,2,2" >
                     <Button.Style>
                         <Style BasedOn="{StaticResource survolBouton}" TargetType="{x:Type Button}" />
                     </Button.Style>
                 </Button>
+                
             </Grid>
 
         </GroupBox>
