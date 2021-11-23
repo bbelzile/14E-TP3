@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 using MongoDB.Bson;
+using TP214E.Pages;
 
 namespace TP214E.Data
 {
@@ -9,7 +10,7 @@ namespace TP214E.Data
     {
         private ObjectId _id;
         private string _nom;
-        private Dictionary<string, int> _alimentsQuantites;
+        private List<Ingredient> _ingredients;
         private decimal _prix;
         private Categories _categorie;
 
@@ -24,10 +25,10 @@ namespace TP214E.Data
             get { return _nom; }
             set { _nom = value; }
         }
-        public Dictionary<string, int> AlimentsQuantites
+        public List<Ingredient> Ingredients
         {
-            get { return _alimentsQuantites; }
-            set { _alimentsQuantites = value; }
+            get { return _ingredients; }
+            set { _ingredients = value; }
         }
         public decimal Prix
         {
@@ -41,16 +42,17 @@ namespace TP214E.Data
             set { _categorie = value; }
         }
 
-        public Recette(ObjectId pId, string pNom, Dictionary<string, int> pDictAliments, decimal pPrix, Categories categorie)
+        public Recette() { }
+        public Recette(ObjectId pId, string pNom, List<Ingredient> pDictAliments, decimal pPrix, Categories categorie)
         {
             Id = pId;
             Nom = pNom;
-            AlimentsQuantites = pDictAliments;
+            Ingredients = pDictAliments;
             Prix = pPrix;
             Categorie = categorie;
         }
 
-        public Recette(string pNom, Dictionary<string, int> pDictAliments, string pPrix, int pCategorie)
+        public Recette(string pNom, List<Ingredient> pDictAliments, string pPrix, int pCategorie)
         {
             VerifierValeurNom(pNom);
             VerifierValeurAlimentsQuantites(pDictAliments);
@@ -71,13 +73,14 @@ namespace TP214E.Data
             }
         }
 
-        public void VerifierValeurAlimentsQuantites(Dictionary<string, int> alimentsQuantites)
+        public void VerifierValeurAlimentsQuantites(List<Ingredient> ingredients)
         {
-            if(alimentsQuantites.Count > 0)
+            if(ingredients.Count > 0)
             {
-                if (VerifierSiQuatitesSontPositives(alimentsQuantites))
+                if (VerifierSiQuatitesSontPositives(ingredients))
                 {
-                    _alimentsQuantites = alimentsQuantites;
+                    _ingredients = ingredients;
+                    
                 }
                 else
                 {
@@ -90,13 +93,13 @@ namespace TP214E.Data
             }
         }
 
-        public static bool VerifierSiQuatitesSontPositives(Dictionary<string, int> alimentsQuantites)
+        public static bool VerifierSiQuatitesSontPositives(List<Ingredient> alimentsQuantites)
         {
             bool aUneMauvaiseQuantite = true;
 
-            foreach (KeyValuePair<string, int> unElementDuDictionnaire in alimentsQuantites)
+            foreach (Ingredient unIngredient in alimentsQuantites)
             {
-                if(unElementDuDictionnaire.Value <= 0)
+                if(unIngredient.Quantite <= 0)
                 {
                     aUneMauvaiseQuantite = false;
                     break;

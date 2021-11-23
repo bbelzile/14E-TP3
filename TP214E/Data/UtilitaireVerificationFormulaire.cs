@@ -19,5 +19,15 @@ namespace TP214E.Data
             bool estUnNombre = _regexChiffre.IsMatch(text);
             return estUnNombre;
         }
+
+        public static bool VerificationLongueurChaine()
+        {
+            return true;
+        }
+
+        public static bool VerificationLongueureNombre()
+        {
+            return true;
+        }
     }
 }

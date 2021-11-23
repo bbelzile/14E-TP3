@@ -100,7 +100,7 @@
 
             <TextBlock Text="Prix" Grid.Column="0" Grid.Row="2" Margin="20,0,0,0" Foreground="White"></TextBlock>
             <StackPanel Grid.Column="1" Grid.Row="2">
-                <xctk:IntegerUpDown x:Name="iudPrix" FormatString="N0" Text="" Margin="10,0,10,0" />
+                <xctk:IntegerUpDown x:Name="iudPrix" FormatString="N0" Text="" Margin="0,5,30,0" />
             </StackPanel>
 
             <TextBlock Text="Categorie" Grid.Column="0" Grid.Row="3" Margin="20,0,0,0" Foreground="White"></TextBlock>
@@ -117,7 +117,7 @@
                     <RowDefinition Height="*"></RowDefinition>
                 </Grid.RowDefinitions>
 
-                <ListView x:Name="lvIngredients" ItemsSource="{Binding __ingredients}" Background="Black">
+                <ListView x:Name="lvIngredients" ItemsSource="{Binding _ingredients}" Background="Black">
                     <ListView.Resources>
                         <Style BasedOn="{StaticResource ListViewStyle}" TargetType="{x:Type ListView}" />
                     </ListView.Resources>
@@ -138,9 +138,9 @@
 
                         <GridView AllowsColumnReorder="true" ColumnHeaderToolTip="Informations des aliments">
 
-                            <GridViewColumn DisplayMemberBinding="{Binding Key}" Header="Nom" Width="200"/>
+                            <GridViewColumn DisplayMemberBinding="{Binding Nom}" Header="Nom" Width="200"/>
 
-                            <GridViewColumn DisplayMemberBinding="{Binding Value}" Header="Quantite" Width="200"/>
+                            <GridViewColumn DisplayMemberBinding="{Binding Quantite}" Header="Quantite" Width="200"/>
 
                         </GridView>
 

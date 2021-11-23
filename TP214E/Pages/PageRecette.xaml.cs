@@ -19,7 +19,7 @@ namespace TP214E.Pages
     /// </summary>
     public partial class PageRecette : Page
     {
-        Dictionary<string, int> _ingredients;
+        List<Ingredient> _ingredients;
         
         AlimentDAL _dalAliment;
         RecetteDAL _dalRecette;
@@ -28,20 +28,23 @@ namespace TP214E.Pages
         {
             _dalAliment = new AlimentDAL();
             _dalRecette = new RecetteDAL();
-            _ingredients = new Dictionary<string, int>();
+            _ingredients = new List<Ingredient>();
 
             InitializeComponent();
+            InstancierCheminValeurCboCategorie();
+            ChargerDonnees();
+
+        }
+
+        public void ChargerDonnees()
+        {
             ChargerCategories();
             ChargerAliments();
             RafraichirDonnees();
-            
         }
 
         public void ChargerCategories()
         {
-            this.cboCategorie.SelectedValuePath = "Key";
-            this.cboCategorie.DisplayMemberPath = "Value";
-
            foreach (int valeurCategorie in Enum.GetValues(typeof(Categories)))
             {
                 int valeurDeLaCategorie = valeurCategorie;
@@ -52,6 +55,12 @@ namespace TP214E.Pages
                 
                 this.cboCategorie.Items.Add(clefValeurCategorie);
             } 
+        }
+
+        public void InstancierCheminValeurCboCategorie()
+        {
+            this.cboCategorie.SelectedValuePath = "Key";
+            this.cboCategorie.DisplayMemberPath = "Value";
         }
 
         public void ChargerAliments()
@@ -65,16 +74,10 @@ namespace TP214E.Pages
 
         public void EnvoyerInformationsRecette(object sender, RoutedEventArgs e)
         {
-            Recette nouvelleRecette;
-
-            string nom = txtNom.Text;
-            string prix = iudPrix.Text;
-            KeyValuePair<int, string> paireClefValeur = (KeyValuePair<int, string>) cboCategorie.SelectedItem;
-            int categorie = paireClefValeur.Key;
-
             try
             {
-                nouvelleRecette = new Recette(nom, _ingredients, prix, categorie);
+                Recette nouvelleRecette = ChercherInformationFormulaire();
+
                 _dalRecette.CreerRecette(nouvelleRecette);
 
                 FermerPage(null, null);
@@ -85,17 +88,31 @@ namespace TP214E.Pages
             }
         }
 
+        public Recette ChercherInformationFormulaire()
+        {
+            Recette nouvelleRecette;
+
+            string nom = txtNom.Text;
+            string prix = iudPrix.Text;
+
+            KeyValuePair<int, string> paireClefValeur = (KeyValuePair<int, string>)cboCategorie.SelectedItem;
+            int categorie = paireClefValeur.Key;
+
+            nouvelleRecette = new Recette(nom, _ingredients, prix, categorie);
+
+            return nouvelleRecette;
+        }
+
         private void MenuItem_Click(object sender, RoutedEventArgs e)
         {
             var elementDuMenu = (MenuItem)e.OriginalSource;
-            KeyValuePair<string, int> ingredientASupprimer = (KeyValuePair<string, int>)elementDuMenu.CommandParameter;
+            Ingredient ingredientASupprimer = (Ingredient)elementDuMenu.CommandParameter;
             RetirerIngredient(ingredientASupprimer);
         }
 
-        public void RetirerIngredient(KeyValuePair<string, int> ingredientASupprimer)
+        public void RetirerIngredient(Ingredient ingredientASupprimer)
         {
-            _ingredients.Remove(ingredientASupprimer.Key);
-
+            _ingredients.Remove(ingredientASupprimer);
             RafraichirDonnees();
         }
 
@@ -103,43 +120,33 @@ namespace TP214E.Pages
         {
             lvIngredients.ItemsSource = _ingredients;
             DataContext = this;
+            lvIngredients.Items.Refresh();
         }
 
         public void AjouterIngredient(object sender, RoutedEventArgs e)
         {
-            string ingredient = cboAliment.SelectedItem as string;
+            string nomIngredient = cboAliment.SelectedItem as string;
             string quantite = txtQuantite.Text;
 
-            if (VerifierValeursAjoutIngredient(ingredient,quantite) == "")
+            try
             {
-                _ingredients.Add(ingredient, int.Parse(quantite));
-                ViderChampsIngredient();
-            }
-            else
-            {
-                AfficherErreurAuxChampsIngredients("Valeur invalide");
-            }
+                Ingredient nouvelIngredient = new Ingredient(nomIngredient, quantite);
 
-            RafraichirDonnees();
+                _ingredients.Add(nouvelIngredient);
+              
+                ViderChampsIngredient();
+                RetirerAlimentDesChoix(nouvelIngredient.Nom);
+                RafraichirDonnees();
+            }
+            catch(Exception ex)
+            {
+                AfficherErreurAuxChampsIngredients(ex.Message);
+            }
         }
 
-        public static string VerifierValeursAjoutIngredient(string ingredient, string quantite)
+        public void RetirerAlimentDesChoix(string nomAlimentASupprimer)
         {
-            string messageErreur = "";
-            if(UtilitaireVerificationFormulaire.VerificationSiTextPasVide(ingredient) &&
-                UtilitaireVerificationFormulaire.VerificationSiTextPasVide(quantite))
-            {
-
-                if (!UtilitaireVerificationFormulaire.TextContienQueDesChiffre(quantite))
-                {
-                    messageErreur = "Le champ quantite doit contenir que des chiffres";
-                }
-            }
-            else
-            {
-                messageErreur = "Il y a un champ vide";
-            }
-            return messageErreur;
+            this.cboAliment.Items.Remove(nomAlimentASupprimer);
         }
 
         public void AfficherErreurAuxChampsIngredients(string message)
@@ -158,8 +165,6 @@ namespace TP214E.Pages
             gboChampIngredient.BorderBrush = Brushes.White;
             gboChampIngredient.Foreground = Brushes.White;
         }
-
-        
 
         public void PreviewQuatiteTextInput(object sender, TextCompositionEventArgs e)
         {
