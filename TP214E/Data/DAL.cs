@@ -11,8 +11,8 @@ namespace TP214E.Data
     public class DAL
     {
         
-        private const string URL_DE_LA_BD = "mongodb://localhost:27017/TP2DB";
-        public const string NOM_DE_LA_BD = "TP2DB";
+        private const string URL_DE_LA_BD = "mongodb://localhost:27017/TP3DB";
+        public const string NOM_DE_LA_BD = "TP3DB";
 
         public MongoClient mongoDBClient;
 

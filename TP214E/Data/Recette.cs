@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 using MongoDB.Bson;
+using TP214E.Pages;
 
 namespace TP214E.Data
 {
@@ -9,8 +10,9 @@ namespace TP214E.Data
     {
         private ObjectId _id;
         private string _nom;
-        private Dictionary<string, int> _alimentsQuantites;
+        private List<Ingredient> _ingredients;
         private decimal _prix;
+        private Categories _categorie;
 
         public ObjectId Id
         {
@@ -23,10 +25,10 @@ namespace TP214E.Data
             get { return _nom; }
             set { _nom = value; }
         }
-        public Dictionary<string, int> AlimentsQuantites
+        public List<Ingredient> Ingredients
         {
-            get { return _alimentsQuantites; }
-            set { _alimentsQuantites = value; }
+            get { return _ingredients; }
+            set { _ingredients = value; }
         }
         public decimal Prix
         {
@@ -34,19 +36,114 @@ namespace TP214E.Data
             set { _prix = value; }
         }
 
-        public Recette(ObjectId pId, string pNom, Dictionary<string, int> pDictAliments, decimal pPrix)
+        public Categories Categorie
+        {
+            get { return _categorie; }
+            set { _categorie = value; }
+        }
+
+        public Recette() { }
+        public Recette(ObjectId pId, string pNom, List<Ingredient> pDictAliments, decimal pPrix, Categories categorie)
         {
             Id = pId;
             Nom = pNom;
-            AlimentsQuantites = pDictAliments;
+            Ingredients = pDictAliments;
             Prix = pPrix;
+            Categorie = categorie;
         }
 
-        public Recette(string pNom, Dictionary<string, int> pDictAliments, decimal pPrix)
+        public Recette(string pNom, List<Ingredient> pDictAliments, string pPrix, int pCategorie)
         {
-            Nom = pNom;
-            AlimentsQuantites = pDictAliments;
-            Prix = pPrix;
+            VerifierValeurNom(pNom);
+            VerifierValeurAlimentsQuantites(pDictAliments);
+            VerifierValeurPrix(pPrix);
+            VerifierValeurCategorie(pCategorie);
+        }
+
+
+        public void VerifierValeurNom(string valeurAVerifier)
+        {
+            if (UtilitaireVerificationFormulaire.VerificationSiTextPasVide(valeurAVerifier))
+            {
+                _nom = valeurAVerifier;
+            }
+            else
+            {
+                throw new ArgumentException("Le champ nom est vide.");
+            }
+        }
+
+        public void VerifierValeurAlimentsQuantites(List<Ingredient> ingredients)
+        {
+            if(ingredients.Count > 0)
+            {
+                if (VerifierSiQuatitesSontPositives(ingredients))
+                {
+                    _ingredients = ingredients;
+                    
+                }
+                else
+                {
+                    throw new ArgumentException("L'une des quantité entrée est négative ou égale à zero.");
+                }
+            }
+            else
+            {
+                throw new ArgumentException("Vous devez ajouter au moins un aliment à la recette.");
+            }
+        }
+
+        public static bool VerifierSiQuatitesSontPositives(List<Ingredient> alimentsQuantites)
+        {
+            bool aUneMauvaiseQuantite = true;
+
+            foreach (Ingredient unIngredient in alimentsQuantites)
+            {
+                if(unIngredient.Quantite <= 0)
+                {
+                    aUneMauvaiseQuantite = false;
+                    break;
+                }
+            }
+
+            return aUneMauvaiseQuantite;
+
+        }
+
+        public void VerifierValeurPrix(string valeurAVerifier)
+        {
+            if (UtilitaireVerificationFormulaire.VerificationSiTextPasVide(valeurAVerifier))
+            {
+                try
+                {
+                    _prix = decimal.Parse(valeurAVerifier);
+                }
+                catch
+                {
+                    throw new ArgumentException("Le champ prix doit comporter que des nombres.");
+
+                }
+            }
+            else
+            {
+                throw new ArgumentException("Le champ prix est vide.");
+            }
+        }
+
+        public void VerifierValeurCategorie(int valeurAVerifier)
+        {
+            try
+            {
+                Categories categorie;
+                categorie = (Categories) valeurAVerifier;
+
+                _categorie = categorie;
+
+            } catch
+            {
+                throw new ArgumentException("La categorie sélectionnée est invalide.");
+            }
+            
         }
     }
 }

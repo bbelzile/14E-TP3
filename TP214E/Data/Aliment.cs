@@ -8,8 +8,6 @@ namespace TP214E.Data
 {
     public class Aliment
     {
-        private static readonly Regex _regexChiffre = new Regex("^[0-9]+$");
-
 
         private ObjectId _id;
         private string _nom;
@@ -62,7 +60,7 @@ namespace TP214E.Data
 
         public void VerificationValeurDate(string valeurAVerifier)
         {
-            if (VerificationSiTextPasVide(valeurAVerifier))
+            if (UtilitaireVerificationFormulaire.VerificationSiTextPasVide(valeurAVerifier))
             {
                 if (DateTime.Parse(valeurAVerifier) > DateTime.Today)
                 {
@@ -81,9 +79,9 @@ namespace TP214E.Data
 
         public void VerificationValeurQuantite(string valeurAVerifier)
         {
-            if (VerificationSiTextPasVide(valeurAVerifier))
+            if (UtilitaireVerificationFormulaire.VerificationSiTextPasVide(valeurAVerifier))
             {
-                if ( Aliment.TextContienQueDesChiffre(valeurAVerifier))
+                if (UtilitaireVerificationFormulaire.TextContienQueDesChiffre(valeurAVerifier))
                 {
                     _quantite = int.Parse(valeurAVerifier);
                 }
@@ -100,7 +98,7 @@ namespace TP214E.Data
 
         public void VerificationValeurNom(string valeurAVerifier)
         {
-            if (VerificationSiTextPasVide(valeurAVerifier))
+            if (UtilitaireVerificationFormulaire.VerificationSiTextPasVide(valeurAVerifier))
             {
                 _nom = valeurAVerifier;
             }
@@ -112,7 +110,7 @@ namespace TP214E.Data
 
         public void VerificationValeurUnite(string valeurAVerifier)
         {
-            if (VerificationSiTextPasVide(valeurAVerifier))
+            if (UtilitaireVerificationFormulaire.VerificationSiTextPasVide(valeurAVerifier))
             {
                 _unite = valeurAVerifier;
             }
@@ -122,15 +120,5 @@ namespace TP214E.Data
             }
         }
 
-        public static bool VerificationSiTextPasVide(string valeurAVerifier)
-        {
-            return (valeurAVerifier != "");
-        }
-
-        public static bool TextContienQueDesChiffre(string text)
-        {
-            bool estUnNombre = _regexChiffre.IsMatch(text);
-            return estUnNombre;
-        }
     }
 }

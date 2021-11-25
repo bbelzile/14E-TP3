@@ -45,9 +45,9 @@ namespace TP214E.Pages
             foreach (Recette recette in recettesExistantes)
             {
                 alimentDisponible = true;
-                foreach (var aliment in recette.AlimentsQuantites)
+                foreach (var aliment in recette.Ingredients)
                 {
-                    if (aliment.Value >= alimentsDansInventaire[aliment.Key])
+                    if (aliment.Quantite >= alimentsDansInventaire[aliment.Nom])
                     {
                         alimentDisponible = false;
                     }
@@ -166,10 +166,10 @@ namespace TP214E.Pages
             List<Aliment> ListeTousLesAliments = _alimentDAL.RechercherTousLesAliments();
             foreach (Recette item in _maCommande.Items)
             {
-                foreach (var aliment in item.AlimentsQuantites)
+                foreach (var aliment in item.Ingredients)
                 {
-                    Aliment alimentAModifier = ListeTousLesAliments.Find(x => x.Nom == aliment.Key);
-                    alimentAModifier.Quantite -= aliment.Value;
+                    Aliment alimentAModifier = ListeTousLesAliments.Find(x => x.Nom == aliment.Nom);
+                    alimentAModifier.Quantite -= aliment.Quantite;
                     _alimentDAL.ModifierAliment(alimentAModifier);
                 }
             }
