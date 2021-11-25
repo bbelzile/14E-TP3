@@ -24,6 +24,8 @@ namespace TP214E.Pages
         CommandeDAL _CommandeDAL;
         Commande _maCommande;
         List<Recette> _recettesPossibles;
+        Dictionary<string, int> _alimentsInventaire;
+
         public PageCommandes()
         {
             InitializeComponent();
@@ -38,8 +40,8 @@ namespace TP214E.Pages
         private void RecuperationToutesRecettesPossibles()
         {
             _recettesPossibles = new List<Recette>();
-            List<Recette> recettesExistantes = _recetteDAL.RechercherToutesLesRecettes();
-            Dictionary<string, int> alimentsDansInventaire = ListeAlimentsEnDictionnaire();
+            List<Recette> recettesExistantes = _recetteDAL.RechercherToutesLesRecettes();            
+            Dictionary<string, int> dictAlimentsDansInventaire = ListeAlimentsEnDictionnaire(_alimentInventaire);
 
             bool alimentDisponible;
             foreach (Recette recette in recettesExistantes)
@@ -47,7 +49,7 @@ namespace TP214E.Pages
                 alimentDisponible = true;
                 foreach (var aliment in recette.AlimentsQuantites)
                 {
-                    if (aliment.Value >= alimentsDansInventaire[aliment.Key])
+                    if (aliment.Value >= dictAlimentsDansInventaire[aliment.Key])
                     {
                         alimentDisponible = false;
                     }
@@ -62,10 +64,10 @@ namespace TP214E.Pages
 
         private Dictionary<string, int> ListeAlimentsEnDictionnaire()
         {
-            List<Aliment> listeAliments = _alimentDAL.RechercherTousLesAliments();
+            List<Aliment> alimentDansLinventaire = _alimentDAL.RechercherTousLesAliments();
             Dictionary<string, int> dictAliments = new Dictionary<string, int>();
 
-            foreach (var aliment in listeAliments)
+            foreach (var aliment in alimentDansLinventaire)
             {
                 dictAliments.Add(aliment.Nom, aliment.Quantite);
             }
@@ -103,7 +105,7 @@ namespace TP214E.Pages
             nouveauBouton.Content = pRecette.Nom;
             nouveauBouton.Name = "Bouton" + pRecette.Nom;
             nouveauBouton.Margin = new Thickness(3);
-            nouveauBouton.HorizontalAlignment = HorizontalAlignment.Stretch;
+            nouveauBouton.Height = 40;
             nouveauBouton.Style = Resources["survolBoutonPrincipal"] as Style;
             nouveauBouton.Tag = pRecette;
 
