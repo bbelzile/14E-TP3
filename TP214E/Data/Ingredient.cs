@@ -2,7 +2,7 @@
 
 namespace TP214E.Data
 {
-    public class Ingredient
+    public class Ingredient : IIngredient
     {
         public Ingredient(string pNom, int pQuantite)
         {
@@ -18,7 +18,7 @@ namespace TP214E.Data
 
         public string Nom { get; set; }
 
-        public int Quantite{ get; set; } 
+        public int Quantite { get; set; }
 
 
         public void VerifierValeurNom(string valeurAVerifier)
@@ -50,14 +50,14 @@ namespace TP214E.Data
                     if (UtilitaireVerificationFormulaire.TextContienQueDesChiffre(valeurAVerifier))
                     {
                         int valeurAVerifierConvertEnInt = int.Parse(valeurAVerifier);
-                            if (UtilitaireVerificationFormulaire.VerificationNombreEstPositif(valeurAVerifierConvertEnInt))
-                            {
-                                Quantite = valeurAVerifierConvertEnInt;
-                            }
-                            else
-                            {
-                                throw new ArgumentException("Le champ quantite doit supérieur à 0.");
-                            }
+                        if (UtilitaireVerificationFormulaire.VerificationNombreEstPositif(valeurAVerifierConvertEnInt))
+                        {
+                            Quantite = valeurAVerifierConvertEnInt;
+                        }
+                        else
+                        {
+                            throw new ArgumentException("Le champ quantite doit supérieur à 0.");
+                        }
                     }
                     else
                     {

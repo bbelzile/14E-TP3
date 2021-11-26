@@ -43,6 +43,8 @@ namespace TP214E.Data
             set { _categorie = value; }
         }
 
+        List<Ingredient> iRecette.Ingredients { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
+
         public Recette() { }
         public Recette(ObjectId pId, string pNom, List<Ingredient> pDictAliments, decimal pPrix, Categories categorie)
         {
@@ -102,7 +104,7 @@ namespace TP214E.Data
             }
         }
 
-        public static bool VerifierSiQuatitesSontPositives(List<Ingredient> alimentsQuantites)
+        private bool VerifierSiQuatitesSontPositives(List<Ingredient> alimentsQuantites)
         {
             bool aUneMauvaiseQuantite = true;
 
@@ -163,5 +165,6 @@ namespace TP214E.Data
             }
             
         }
+
     }
 }
