@@ -8,6 +8,8 @@ namespace TP214E.Data
     public static class UtilitaireVerificationFormulaire
     {
         private static readonly Regex _regexChiffre = new Regex("^[0-9]+$");
+        public const int LONGUEUR_MAXIMUM_CHAINE = 100;
+        public const int LONGUEUR_MAXIMUM_NOMBRE = 4;
 
         public static bool VerificationSiTextPasVide(string valeurAVerifier)
         {
@@ -20,14 +22,42 @@ namespace TP214E.Data
             return estUnNombre;
         }
 
-        public static bool VerificationLongueurChaine()
+        public static bool VerificationLongueurChaine(string chaineAVerifier)
         {
-            return true;
+
+            if (chaineAVerifier.Length > LONGUEUR_MAXIMUM_CHAINE)
+            {
+                return false;
+            }
+            else
+            {
+                return true;
+            }
         }
 
-        public static bool VerificationLongueureNombre()
+        public static bool VerificationLongueureNombre(string nombreAVerifier)
         {
-            return true;
+
+            if(nombreAVerifier.Length > LONGUEUR_MAXIMUM_NOMBRE)
+            {
+                return false;
+            }
+            else
+            {
+                return true;
+            }
+        }
+
+        public static bool VerificationNombreEstPositif(int nombreAVerifier)
+        {
+            if (nombreAVerifier > 0)
+            {
+                return false;
+            }
+            else
+            {
+                return true;
+            }
         }
     }
 }

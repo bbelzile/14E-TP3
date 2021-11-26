@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 using MongoDB.Bson;
+using TP214E.Data.interfaces;
 
 namespace TP214E.Data
 {
@@ -25,15 +26,15 @@ namespace TP214E.Data
             Items = new List<Recette>();
         }
 
-        public void AjouterItemCommande(Recette pRecette)
+        public void AjouterItemCommande(iRecette pRecette)
         {
-            Items.Add(pRecette);
+            Items.Add((Recette)pRecette);
             Total += pRecette.Prix;
         }
 
-        public void RetirerItemCommande(Recette pRecette)
+        public void RetirerItemCommande(iRecette pRecette)
         {
-            Items.Remove(pRecette);
+            Items.Remove((Recette)pRecette);
             Total -= pRecette.Prix;
         }
 

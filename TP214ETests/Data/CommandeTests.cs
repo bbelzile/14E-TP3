@@ -1,70 +1,71 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 using TP214E.Data;
+using TP214E.Data.interfaces;
 using System;
 using System.Collections.Generic;
 using System.Text;
+using Moq;
 
 namespace TP214E.Data.Tests
 {
     [TestClass()]
     public class CommandeTests
     {
+        private Mock<iRecette> recetteDeTest;
+        private Commande commandeTest;
+
+        private void InitialisterVariable()
+        {
+            recetteDeTest = new Mock<iRecette>();
+            recetteDeTest.Setup(x => x.Prix).Returns(4);
+            commandeTest = new Commande();
+        }
+
         [TestMethod()]
         public void VerifierPrixAjouterALaCommandeTest()
         {
-            List<Ingredient> ingredients = new List<Ingredient>();
-            ingredients.Add(new Ingredient("tomate", 1));
-            Recette recetteTest = new Recette("tomates en dés", ingredients, "2",1);
+            InitialisterVariable();
             Commande maCommande = new Commande();
-            Commande maDeuxiemeCommande = new Commande();
 
-            maCommande.AjouterItemCommande(recetteTest);
+            maCommande.AjouterItemCommande(recetteDeTest.Object);
 
-            Assert.IsTrue(maCommande.Total > maDeuxiemeCommande.Total);
+            Assert.IsTrue(maCommande.Total > commandeTest.Total);
         }
 
         [TestMethod()]
         public void VerifierCompteAjouterALaCommandeTest()
         {
-            List<Ingredient> ingredients = new List<Ingredient>();
-            ingredients.Add(new Ingredient("tomate", 1));
-            Recette recetteTest = new Recette("tomates en dés", ingredients, "2", 1);
+            InitialisterVariable();
             Commande maCommande = new Commande();
-            Commande maDeuxiemeCommande = new Commande();
 
-            maCommande.AjouterItemCommande(recetteTest);
+            maCommande.AjouterItemCommande(recetteDeTest.Object);
 
-            Assert.IsTrue(maCommande.Items.Count > maDeuxiemeCommande.Items.Count);
+            Assert.IsTrue(maCommande.Items.Count > commandeTest.Items.Count);
 
         }
 
         [TestMethod()]
         public void VerifierPrixRetirerDeLaCommandeTest()
         {
-            List<Ingredient> ingredients = new List<Ingredient>();
-            ingredients.Add(new Ingredient("tomate", 1));
-            Recette recetteTest = new Recette("tomates en dés", ingredients, "2", 1);
+            InitialisterVariable();
             Commande maCommande = new Commande();
-            Commande maDeuxiemeCommande = new Commande();
 
-            maCommande.AjouterItemCommande(recetteTest);
-            maCommande.RetirerItemCommande(recetteTest);
+            maCommande.AjouterItemCommande(recetteDeTest.Object);
+            maCommande.RetirerItemCommande(recetteDeTest.Object);
 
-            Assert.IsTrue(maCommande.Total == maDeuxiemeCommande.Total);
+            Assert.IsTrue(maCommande.Total == commandeTest.Total);
         }
 
         [TestMethod()]
         public void VerifierCompteRetirerDeLaCommandeTest()
         {
-            List<Ingredient> ingredients = new List<Ingredient>();
-            ingredients.Add(new Ingredient("tomate", 1));
-            Recette recetteTest = new Recette("tomates en dés", ingredients, "2", 1);
+            InitialisterVariable();
             Commande maCommande = new Commande();
-            Commande maDeuxiemeCommande = new Commande();
-            maCommande.AjouterItemCommande(recetteTest);
-            maCommande.RetirerItemCommande(recetteTest);
 
-            Assert.IsTrue(maCommande.Items.Count == maDeuxiemeCommande.Items.Count);
+            maCommande.AjouterItemCommande(recetteDeTest.Object);
+            maCommande.RetirerItemCommande(recetteDeTest.Object);
+
+            Assert.IsTrue(maCommande.Items.Count == commandeTest.Items.Count);
         }
 
     }

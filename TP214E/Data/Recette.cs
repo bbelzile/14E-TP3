@@ -3,10 +3,11 @@ using System.Collections.Generic;
 using System.Text;
 using MongoDB.Bson;
 using TP214E.Pages;
+using TP214E.Data.interfaces;
 
 namespace TP214E.Data
 {
-    public class Recette
+    public class Recette: iRecette
     {
         private ObjectId _id;
         private string _nom;
@@ -65,7 +66,15 @@ namespace TP214E.Data
         {
             if (UtilitaireVerificationFormulaire.VerificationSiTextPasVide(valeurAVerifier))
             {
-                _nom = valeurAVerifier;
+                if (UtilitaireVerificationFormulaire.VerificationLongueurChaine(valeurAVerifier))
+                {
+                    _nom = valeurAVerifier;
+                }
+                else
+                {
+                    throw new ArgumentException("Le champ nom doit contenir un maximum de " + UtilitaireVerificationFormulaire.LONGUEUR_MAXIMUM_CHAINE +
+                        " caractère.");
+                }
             }
             else
             {
@@ -75,7 +84,7 @@ namespace TP214E.Data
 
         public void VerifierValeurAlimentsQuantites(List<Ingredient> ingredients)
         {
-            if(ingredients.Count > 0)
+            if(UtilitaireVerificationFormulaire.VerificationNombreEstPositif(ingredients.Count))
             {
                 if (VerifierSiQuatitesSontPositives(ingredients))
                 {
@@ -99,7 +108,7 @@ namespace TP214E.Data
 
             foreach (Ingredient unIngredient in alimentsQuantites)
             {
-                if(unIngredient.Quantite <= 0)
+                if(UtilitaireVerificationFormulaire.VerificationNombreEstPositif(unIngredient.Quantite))
                 {
                     aUneMauvaiseQuantite = false;
                     break;
@@ -114,15 +123,24 @@ namespace TP214E.Data
         {
             if (UtilitaireVerificationFormulaire.VerificationSiTextPasVide(valeurAVerifier))
             {
-                try
+                if (UtilitaireVerificationFormulaire.VerificationLongueureNombre(valeurAVerifier))
                 {
-                    _prix = decimal.Parse(valeurAVerifier);
-                }
-                catch
-                {
-                    throw new ArgumentException("Le champ prix doit comporter que des nombres.");
+                    try
+                    {
+                        _prix = decimal.Parse(valeurAVerifier);
+                    }
+                    catch
+                    {
+                        throw new ArgumentException("Le champ prix doit comporter que des nombres.");
 
+                    }
                 }
+                else
+                {
+                    throw new ArgumentException("Le champ prix doit contenir un maximum de " + UtilitaireVerificationFormulaire.LONGUEUR_MAXIMUM_NOMBRE +
+                        " caractère.");
+                }
+            
             }
             else
             {
