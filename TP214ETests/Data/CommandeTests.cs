@@ -12,7 +12,9 @@ namespace TP214E.Data.Tests
         [TestMethod()]
         public void VerifierPrixAjouterALaCommandeTest()
         {
-            Recette recetteTest = new Recette("tomates en dés", new Dictionary<string, int> { { "tomate", 1 } }, 2);
+            List<Ingredient> ingredients = new List<Ingredient>();
+            ingredients.Add(new Ingredient("tomate", 1));
+            Recette recetteTest = new Recette("tomates en dés", ingredients, "2",1);
             Commande maCommande = new Commande();
             Commande maDeuxiemeCommande = new Commande();
 
@@ -24,7 +26,9 @@ namespace TP214E.Data.Tests
         [TestMethod()]
         public void VerifierCompteAjouterALaCommandeTest()
         {
-            Recette recetteTest = new Recette("tomates en dés", new Dictionary<string, int> { { "tomate", 1 } }, 2);
+            List<Ingredient> ingredients = new List<Ingredient>();
+            ingredients.Add(new Ingredient("tomate", 1));
+            Recette recetteTest = new Recette("tomates en dés", ingredients, "2", 1);
             Commande maCommande = new Commande();
             Commande maDeuxiemeCommande = new Commande();
 
@@ -37,7 +41,9 @@ namespace TP214E.Data.Tests
         [TestMethod()]
         public void VerifierPrixRetirerDeLaCommandeTest()
         {
-            Recette recetteTest = new Recette("tomates en dés", new Dictionary<string, int> { { "tomate", 1 } }, 2);
+            List<Ingredient> ingredients = new List<Ingredient>();
+            ingredients.Add(new Ingredient("tomate", 1));
+            Recette recetteTest = new Recette("tomates en dés", ingredients, "2", 1);
             Commande maCommande = new Commande();
             Commande maDeuxiemeCommande = new Commande();
 
@@ -50,7 +56,9 @@ namespace TP214E.Data.Tests
         [TestMethod()]
         public void VerifierCompteRetirerDeLaCommandeTest()
         {
-            Recette recetteTest = new Recette("tomates en dés", new Dictionary<string, int> { { "tomate", 1 } }, 2);
+            List<Ingredient> ingredients = new List<Ingredient>();
+            ingredients.Add(new Ingredient("tomate", 1));
+            Recette recetteTest = new Recette("tomates en dés", ingredients, "2", 1);
             Commande maCommande = new Commande();
             Commande maDeuxiemeCommande = new Commande();
             maCommande.AjouterItemCommande(recetteTest);

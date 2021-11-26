@@ -14,6 +14,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <PackageReference Include="Extended.Wpf.Toolkit" Version="4.1.0" />
     <PackageReference Include="MongoDB.Driver" Version="2.13.2" />
     <PackageReference Include="Moq" Version="4.16.1" />
     <PackageReference Include="runtime.win-x64.Microsoft.NETCore.DotNetHostPolicy" Version="6.0.0" />

@@ -64,7 +64,7 @@ namespace TP214E
             bool requeteReussi = _dal.SupprimerAliment(alimentASupprimer);
             VerifierReussiteRequete(requeteReussi);
         }
-
+        
         public void VerifierReussiteRequete(bool requeteRéussi)
         {
             if (requeteRéussi)
@@ -101,6 +101,12 @@ namespace TP214E
             {
                 this.NavigationService.GoBack();
             }
+        }
+
+        private void btnAjouterRecette_Click(object sender, RoutedEventArgs e)
+        {
+            PageRecette frmRecette = new PageRecette();
+            this.NavigationService.Navigate(frmRecette);
         }
     }
 }
