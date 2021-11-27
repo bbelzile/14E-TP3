@@ -110,7 +110,7 @@ namespace TP214E.Data
 
             foreach (Ingredient unIngredient in alimentsQuantites)
             {
-                if(UtilitaireVerificationFormulaire.VerificationNombreEstPositif(unIngredient.Quantite))
+                if(!UtilitaireVerificationFormulaire.VerificationNombreEstPositif(unIngredient.Quantite))
                 {
                     aUneMauvaiseQuantite = false;
                     break;

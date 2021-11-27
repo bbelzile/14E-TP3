@@ -4,6 +4,8 @@ namespace TP214E.Data
 {
     public class Ingredient : IIngredient
     {
+        public Ingredient() { }
+
         public Ingredient(string pNom, int pQuantite)
         {
             Nom = pNom;

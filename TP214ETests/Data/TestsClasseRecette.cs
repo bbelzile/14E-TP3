@@ -8,19 +8,22 @@ using Moq;
 namespace TP214E.Data.Tests
 {
     [TestClass()]
-    public class RecetteTests
+    public class TestsClasseRecette
     {
         private Recette recetteDeTest;
-        private const string chainDeTesteTresLongue = "12345678910111213141516171819" +
-            "20212223242526272829303132333435363738394041424344454647484950515253545" +
-            "5565758596061626364656667686970";
+        private const string chainDeTestTresLongue = "123456789101112131415161718192021" +
+                "2223242526272829303132333435363738394041" +
+                "424344454647484950515253545556575859606162636" +
+                "46566676869707172737475767778798081828384858687" +
+                "888990919293949596979899100";
 
         private void InitialisterVariable(int quantiteIngredientTest = 1)
         {
             List<Ingredient> ingredients = new List<Ingredient>();
-            Mock<IIngredient> ingredientTest = new Mock<IIngredient>();
-            ingredientTest.Setup(x => x.Quantite).Returns(quantiteIngredientTest);
-            ingredients.Add((Ingredient)ingredientTest.Object);
+            Ingredient ingredientTest = new Ingredient("tomate",1);
+
+            ingredients.Add(ingredientTest);
+
             recetteDeTest = new Recette("tomates en dés",ingredients,"2",1);
         }
 
@@ -40,7 +43,7 @@ namespace TP214E.Data.Tests
         {
             InitialisterVariable();
 
-            recetteDeTest.VerifierValeurNom(chainDeTesteTresLongue);
+            recetteDeTest.VerifierValeurNom(chainDeTestTresLongue);
 
         }
 
@@ -95,11 +98,14 @@ namespace TP214E.Data.Tests
         public void VerifierValeurAlimentDonneValeurARecette()
         {
             InitialisterVariable();
-            List<Ingredient> listeVide = new List<Ingredient>();
+            Ingredient nouvelIngredientTest = new Ingredient("tomate",1);
+            List<Ingredient> ingredients = new List<Ingredient>();
+            ingredients.Add(nouvelIngredientTest);
+            ingredients.Add(nouvelIngredientTest);
 
-            recetteDeTest.VerifierValeurAlimentsQuantites(listeVide);
+            recetteDeTest.VerifierValeurAlimentsQuantites(ingredients);
 
-            Assert.AreEqual(recetteDeTest.Ingredients.Count,1);
+            Assert.AreEqual(recetteDeTest.Ingredients.Count,2);
 
         }
 

@@ -52,11 +52,11 @@ namespace TP214E.Data
         {
             if (nombreAVerifier > 0)
             {
-                return false;
+                return true;
             }
             else
             {
-                return true;
+                return false;
             }
         }
     }

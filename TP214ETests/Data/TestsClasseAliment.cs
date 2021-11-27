@@ -11,6 +11,11 @@ namespace TP214E.Pages.Tests
     [TestClass()]
     public class TestsClasseAliment
     {
+        private const string chainDeTestTresLongue = "123456789101112131415161718192021" +
+                "2223242526272829303132333435363738394041" +
+                "424344454647484950515253545556575859606162636" +
+                "46566676869707172737475767778798081828384858687" +
+                "888990919293949596979899100";
 
         [TestMethod()]
         [ExpectedException(typeof(ArgumentException), "Le champ date est vide.")]
@@ -58,6 +63,17 @@ namespace TP214E.Pages.Tests
         }
 
         [TestMethod()]
+        [ExpectedException(typeof(ArgumentException), "Le champ quantite doit contenir un maximum de 4 nombres.")]
+        public void VerificationValeurQuantiteEchouSiValeurTropGrande()
+        {
+            Aliment aliment = new Aliment();
+            string quantite = "12345";
+
+            aliment.VerificationValeurQuantite(quantite);
+
+        }
+
+        [TestMethod()]
         [ExpectedException(typeof(ArgumentException), "Le champ quantite doit comporter que des nombres.")]
         public void VerificationValeurQuantiteEchouSiValeurContienDesLettre()
         {
@@ -92,6 +108,16 @@ namespace TP214E.Pages.Tests
         }
 
         [TestMethod()]
+        [ExpectedException(typeof(ArgumentException), "Le champ nom doit contenir un maximum de 100 caractères.")]
+        public void VerificationValeurNomEchouSiValeurTropLongue()
+        {
+            Aliment aliment = new Aliment();
+
+            aliment.VerificationValeurNom(chainDeTestTresLongue);
+
+        }
+
+        [TestMethod()]
         public void VerificationValeurNomAttribueValeurAObjetAliment()
         {
             Aliment aliment = new Aliment();
@@ -111,6 +137,16 @@ namespace TP214E.Pages.Tests
             string unite = "";
 
             aliment.VerificationValeurUnite(unite);
+
+        }
+
+        [TestMethod()]
+        [ExpectedException(typeof(ArgumentException), "Le champ unite doit contenir un maximum de 100 caractères.")]
+        public void VerificationValeurUniteEchouSiValeurTropLongue()
+        {
+            Aliment aliment = new Aliment();
+
+            aliment.VerificationValeurUnite(chainDeTestTresLongue);
 
         }
 

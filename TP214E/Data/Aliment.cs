@@ -116,7 +116,7 @@ namespace TP214E.Data
                 else
                 {
                     throw new ArgumentException("Le champ nom doit contenir un maximum de " + UtilitaireVerificationFormulaire.LONGUEUR_MAXIMUM_CHAINE +
-                        " nombres.");
+                        " caractères.");
                 }
                 
             }
@@ -137,7 +137,7 @@ namespace TP214E.Data
                 else
                 {
                     throw new ArgumentException("Le champ unite doit contenir un maximum de " + UtilitaireVerificationFormulaire.LONGUEUR_MAXIMUM_CHAINE +
-                        " nombres.");
+                        " caractères.");
                 }
             }
             else

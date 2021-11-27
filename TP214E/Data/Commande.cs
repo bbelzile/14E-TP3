@@ -26,15 +26,15 @@ namespace TP214E.Data
             Items = new List<Recette>();
         }
 
-        public void AjouterItemCommande(iRecette pRecette)
+        public void AjouterItemCommande(Recette pRecette)
         {
-            Items.Add((Recette)pRecette);
+            Items.Add(pRecette);
             Total += pRecette.Prix;
         }
 
-        public void RetirerItemCommande(iRecette pRecette)
+        public void RetirerItemCommande(Recette pRecette)
         {
-            Items.Remove((Recette)pRecette);
+            Items.Remove(pRecette);
             Total -= pRecette.Prix;
         }
 
