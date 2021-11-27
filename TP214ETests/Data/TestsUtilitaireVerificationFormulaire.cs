@@ -78,7 +78,7 @@ namespace TP214E.Data.Tests
         [TestMethod()]
         public void VerificationLongueureNombreRetourneFalseSiValeurTropLongue()
         {
-            string chaineDePlusDe4Caractere = "1234";
+            string chaineDePlusDe4Caractere = "123412";
 
             bool resultat = UtilitaireVerificationFormulaire.VerificationLongueureNombre(chaineDePlusDe4Caractere);
 

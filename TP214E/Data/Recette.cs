@@ -152,14 +152,14 @@ namespace TP214E.Data
 
         public void VerifierValeurCategorie(int valeurAVerifier)
         {
-            try
+            if(Enum.IsDefined(typeof(Categories), valeurAVerifier))
             {
                 Categories categorie;
-                categorie = (Categories) valeurAVerifier;
+                categorie =  (Categories) valeurAVerifier;
 
                 _categorie = categorie;
 
-            } catch
+            } else
             {
                 throw new ArgumentException("La categorie sélectionnée est invalide.");
             }
