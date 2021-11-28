@@ -69,10 +69,13 @@ jobs:
     if: (needs.job1.result == 'failure')
     steps:
     - name: creating issue
-      uses: peter-evans/create-issue-from-file@v3
+      uses: maxkomarychev/oction-create-issue@v0.7.1
+      id: ${{ github.ref }}
       with:
-        title: "Erreur lors de la release"
-        content-filepath: ./issue-content/output.md
-        labels: |
-            report
-            automated issue
+        token: ${{ secrets.GITHUB_TOKEN }}
+        title: ${{ github.ref }}
+    - name: Print outputs
+      run: |
+        echo ${{ steps.my_step_id.outputs.id }}
+        echo ${{ steps.my_step_id.outputs.number }}
+
