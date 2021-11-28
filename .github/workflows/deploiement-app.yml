@@ -1,6 +1,5 @@
 
 name: deploiement-app
-
 on:
   push:
     branches: 
@@ -15,9 +14,7 @@ on:
       
 
 jobs:
-
   build:
-
     strategy:
       matrix:
         configuration: [Release]
