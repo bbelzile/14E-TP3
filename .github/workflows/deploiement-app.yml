@@ -45,7 +45,7 @@ jobs:
       run: dotnet test
       
     - name: Publish the application
-      run: dotnet publish ${{ env.Project_Path }} -c Release -r win-x64 --self-contained -p:PublishSingleFile=true --no-build
+      run: dotnet publish ${{ env.Project_Path }} -c Release -r win-x64 --self-contained --no-build
       
     - name: Create a release  part 1
       id: create_release
