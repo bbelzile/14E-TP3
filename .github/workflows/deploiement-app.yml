@@ -63,12 +63,16 @@ jobs:
         pattern: TP214E/bin/Release/netcoreapp3.1/win-x64/publish/TP214E.exe
         release-url: ${{ steps.create_release.outputs.upload_url }}
 
-    run-if-failed:
-        name: creating issue
-      - uses: peter-evans/create-issue-from-file@v3
-        with:
-          title: ${{ github.ref }}
-          content-filepath: ./issue-content/output.md
-          labels: |
+  run-if-failed:
+    runs-on: "windows-latest" 
+    needs: "job1"
+    if: (needs.job1.result == 'failure')
+    steps:
+    - name: creating issue
+      uses: peter-evans/create-issue-from-file@v3
+      with:
+        title: "Erreur lors de la release"
+        content-filepath: ./issue-content/output.md
+        labels: |
             report
             automated issue
