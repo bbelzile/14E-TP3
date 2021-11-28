@@ -45,17 +45,17 @@ jobs:
       uses: microsoft/setup-msbuild@v1.0.2
       
     - name: Restore the application
-      run: dotnet restore ${{ env.Project_Path }}
+      run: dotnet restore TP214E/TP214E.csproj
         
     - name: Build the application
-      run: dotnet build ${{ env.Project_Path }} -c release --no-restore
+      run: dotnet build TP214E/TP214E.csproj -c release --no-restore
 
     # Execute all unit tests in the solution
     - name: Execute unit tests
       run: dotnet test
       
     - name: Publish the application
-      run: dotnet publish ${{ env.Project_Path }} -c Release -r win-x64 --self-contained -p:PublishSingleFile=true --no-build
+      run: dotnet publish TP214E/TP214E.csproj -c Release -r win-x64 --self-contained -p:PublishSingleFile=true --no-build
       
     - name: Create a release  
     - uses: actions/create-release@v1
