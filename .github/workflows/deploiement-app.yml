@@ -9,7 +9,7 @@ on:
       
 
 jobs:
-  build:
+  job1:
     strategy:
       matrix:
         configuration: [Release]
@@ -63,23 +63,7 @@ jobs:
         pattern: TP214E/bin/Release/netcoreapp3.1/win-x64/publish/TP214E.exe
         release-url: ${{ steps.create_release.outputs.upload_url }}
 
-  slack:
-    name: Slack
-    needs: publish # set needs only last job except this job
-    runs-on: windows-latest
-    if: always() # set always
-    steps:
-        # run this action to get workflow conclusion
-        # You can get conclusion via env (env.WORKFLOW_CONCLUSION)
-      - uses: technote-space/workflow-conclusion-action@v2
-      - uses: 8398a7/action-slack@v3
-        with:
-          # status: ${{ env.WORKFLOW_CONCLUSION }} # neutral, success, skipped, cancelled, timed_out, action_required, failure
-          status: failure
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
-        if: env.WORKFLOW_CONCLUSION == 'failure' # notify only if failure
+    run-if-failed:
         name: creating issue
       - uses: peter-evans/create-issue-from-file@v3
         with:
