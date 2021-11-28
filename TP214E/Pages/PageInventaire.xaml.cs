@@ -45,8 +45,6 @@ namespace TP214E
             DataContext = this;
         }
 
-        
-
         private void ListViewItem_PreviewMouseLeftButtonDown(object sender, RoutedEventArgs e)
         {
             ListViewItem elemetDeLaliste = sender as ListViewItem;
