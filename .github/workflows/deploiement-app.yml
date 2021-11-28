@@ -70,10 +70,10 @@ jobs:
     steps:
     - name: creating issue
       uses: maxkomarychev/oction-create-issue@v0.7.1
-      id: ${{ github.ref }}
+      id: issue
       with:
         token: ${{ secrets.GITHUB_TOKEN }}
-        title: ${{ github.ref }}
+        title: Issue lors de release
     - name: Print outputs
       run: |
         echo ${{ steps.my_step_id.outputs.id }}
