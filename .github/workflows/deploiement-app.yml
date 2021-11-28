@@ -63,19 +63,31 @@ jobs:
         pattern: TP214E/bin/Release/netcoreapp3.1/win-x64/publish/TP214E.exe
         release-url: ${{ steps.create_release.outputs.upload_url }}
 
-  run-if-failed:
-    runs-on: "windows-latest" 
-    needs: job1
-    if: (needs.job1.result == 'failure')
-    steps:
-    - name: creating issue
-      uses: maxkomarychev/oction-create-issue@v0.7.1
-      id: issue
-      with:
-        token: ${{ secrets.GITHUB_TOKEN }}
-        title: Issue lors de release
-    - name: Print outputs
+    - name: Step To run on failure
+      if: ${{ failure() }}
       run: |
-        echo ${{ steps.my_step_id.outputs.id }}
-        echo ${{ steps.my_step_id.outputs.number }}
+       curl --request POST \
+       --url https://api.github.com/repos/${{ github.repository }}/issues \
+       --header 'authorization: Bearer ${{ secrets.GITHUB_TOKEN }}' \
+       --header 'content-type: application/json' \
+       --data '{
+         "title": "Issue créee à cause d\'un échec du workflow': ${{ github.run_id }}",
+         "body": "Issue crée automatiquement à partir de **${{ github.workflow }}**. \n\n à cause d\'une erreur: _${{ github.run_id }}_."
+          }'
+
+  #run-if-failed:
+  #  runs-on: "windows-latest" 
+  #  needs: job1
+  #  if: (needs.job1.result == 'failure')
+  #  steps:
+  #  - name: creating issue
+  #    uses: maxkomarychev/oction-create-issue@v0.7.1
+  #    id: issue
+  #    with:
+  #      token: ${{ secrets.GITHUB_TOKEN }}
+  #      title: Issue lors de release
+  #  - name: Print outputs
+  #    run: |
+  #      echo ${{ steps.my_step_id.outputs.id }}
+  #      echo ${{ steps.my_step_id.outputs.number }}
 
