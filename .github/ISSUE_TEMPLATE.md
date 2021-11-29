@@ -1,3 +1,5 @@
 ---
-title: {{env.action}} Failed
+title: Someone just pushed
+assignees: bbelzile
+labels: bug, enhancement
 ---
