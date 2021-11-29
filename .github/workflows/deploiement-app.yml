@@ -70,10 +70,6 @@ jobs:
       with:
         #route: POST repos/${{ github.repository }}/issues
         route: POST repos/{owner}/{repo}/issues
-        owner: bbelzile
-        repo: 14E-TP3
-        name: "test api"
-        head_sha: ${{ github.sha }}
         output: |
             title: test api
             body: test
