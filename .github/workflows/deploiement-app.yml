@@ -65,7 +65,11 @@ jobs:
 
     - name: Step To run on failure
       if: ${{ failure() }}
-      run: curl \ -X POST \ -H "Accept:application/vnd.github.v3+json" \ https://api.github.com/repos/octocat/hello-world/issues \ -d '{"title":"title"}'
+      run: curl \
+          -X POST \
+          -H "Accept: application/vnd.github.v3+json" \
+          https://api.github.com/repos/octocat/hello-world/issues \
+          -d '{"title":"title"}'
       #uses: octokit/request-action@v2.x
       #id: api-when-jobs-fail
       #with:
