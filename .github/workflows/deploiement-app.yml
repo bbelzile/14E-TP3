@@ -68,11 +68,10 @@ jobs:
       uses: octokit/request-action@v2.x
       id: api-when-jobs-fail
       with:
-        #route: POST repos/${{ github.repository }}/issues
         route: POST /repos/bbelzile/14e-tp3/issues
         output: |
             title: test api
-            body: test
+        body: "{title: 'test-issues',body: 'body-test'}"
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
