@@ -63,50 +63,29 @@ jobs:
         pattern: TP214E/bin/Release/netcoreapp3.1/win-x64/publish/TP214E.exe
         release-url: ${{ steps.create_release.outputs.upload_url }}
 
-    - name: Step To run on failure
-      if: ${{ failure() }}
-      uses: nashmaniac/create-issue-action@v1.1
+    #- name: Step To run on failure
+    #  if: ${{ failure() }}
+    #  uses: nashmaniac/create-issue-action@v1.1
+    #  with:
+    #    title: Build Failed
+    #    token: ${{secrets.GITHUB_TOKEN}}
+    #    assignees: ${{github.actor}}
+    #    labels: worflow-failed
+    #    body: Workflow failed for commit ${{github.sha}}
+
+
+      #run: curl -X POST -H "Accept:application/vnd.github.v3+json" https://api.github.com/repos/bbelzile/14E-TP3/issues -d '{"title":"title"}' #
+
+  run-if-failed:
+    runs-on: ubuntu-latest 
+    name: Step To run on failure
+    if: ${{ failure() }}
+    steps:
+    - uses: nashmaniac/create-issue-action@v1.1
       with:
         title: Build Failed
         token: ${{secrets.GITHUB_TOKEN}}
         assignees: ${{github.actor}}
         labels: worflow-failed
         body: Workflow failed for commit ${{github.sha}}
-
-
-      #run: curl -X POST -H "Accept:application/vnd.github.v3+json" https://api.github.com/repos/bbelzile/14E-TP3/issues -d '{"title":"title"}' #
-      #uses: octokit/request-action@v2.x
-      #id: api-when-jobs-fail
-      #with:
-      #  route: POST /repos/bbelzile/14e-tp3/issues
-      #  body: | 
-      #      "{title: 'test-issues',body: 'body-test'}"
-      #env:
-      #  GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-
-      #run: |
-      # curl --request POST \
-      # --url https://api.github.com/repos/${{ github.repository }}/issues \
-      # --header 'authorization: Bearer ${{ secrets.GITHUB_TOKEN }}' \
-      # --header 'content-type: application/json' \
-      # --data '{
-      #   "title": "Issue créee à cause d\'un échec du workflow': ${{ github.run_id }}",
-      #   "body": "Issue crée automatiquement à partir de **${{ github.workflow }}**. \n\n à cause d\'une erreur: _${{ github.run_id }}_."
-      #    }'
-
-  #run-if-failed:
-  #  runs-on: "windows-latest" 
-  #  needs: job1
-  #  if: (needs.job1.result == 'failure')
-  #  steps:
-  #  - name: creating issue
-  #    uses: maxkomarychev/oction-create-issue@v0.7.1
-  #    id: issue
-  #    with:
-  #      token: ${{ secrets.GITHUB_TOKEN }}
-  #      title: Issue lors de release
-  #  - name: Print outputs
-  #    run: |
-  #      echo ${{ steps.my_step_id.outputs.id }}
-  #      echo ${{ steps.my_step_id.outputs.number }}
 
