@@ -72,6 +72,8 @@ jobs:
       uses: JasonEtco/create-an-issue@v2
       env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      with:
+        filename: .github/ISSUE_TEMPLATE.md
     #- name: Step To run on failure
     #  if: ${{ failure() }}
     #  uses: nashmaniac/create-issue-action@v1.1
