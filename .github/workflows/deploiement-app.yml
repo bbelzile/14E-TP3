@@ -69,7 +69,7 @@ jobs:
       id: api-when-jobs-fail
       with:
         #route: POST repos/${{ github.repository }}/issues
-        route: POST repos/bbelzile/14e-tp3/issues
+        route: POST /repos/bbelzile/14e-tp3/issues
         output: |
             title: test api
             body: test
