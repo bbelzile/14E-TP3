@@ -1,5 +1,5 @@
 ---
 title: {{tools.context.action}} Failed
-assignees: {{tools.context.actor}}
+assignees: un connard
 labels: bug, enhancement
 ---
