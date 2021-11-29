@@ -1,3 +1,3 @@
 ---
-title: {{tools.context.action}} Failed
+title: {{env.action}} Failed
 ---
