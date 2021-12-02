@@ -61,7 +61,7 @@ namespace TP214E.Pages
             int qtMinimum;
             foreach (var recette in pRecettes)
             {
-                qtMinimum = 1000;
+                qtMinimum = 10000;
                 foreach(var ingredient in recette.Ingredients)
                 {
                     cbRecetteFaisable = Math.Floor((double)(pAliments[ingredient.Nom] / ingredient.Quantite));
@@ -92,9 +92,10 @@ namespace TP214E.Pages
             Button nouveauBouton = new Button();
 
             nouveauBouton.Content = pRecette.Nom;
-            nouveauBouton.Name = "Bouton" + pRecette.Nom;
+            nouveauBouton.Name = "Bouton" + pRecette.Id;
             nouveauBouton.Margin = new Thickness(3);
             nouveauBouton.Height = 40;
+            nouveauBouton.Width = 100;
             nouveauBouton.Tag = pRecette;
             if (quantitePossible == 0)
             {
@@ -209,6 +210,26 @@ namespace TP214E.Pages
             {
                 this.NavigationService.GoBack();
             }
+        }
+
+        private void btnRecetteInd_Click(object sender, RoutedEventArgs e)
+        {
+            if (btnRecetteInd.Content == "Afficher les recettes non-disponibles")
+            {
+                foreach (Button bouton in WP.Children)
+                {
+                    bouton.Visibility = Visibility.Visible;
+                }
+                btnRecetteInd.Content = "Masquer les recettes non-disponibles";
+            }
+            else
+            {
+                _recettesPossibles = RecupererLesRecettesPossibles(_dictAlimentsDispo, _listeToutesRecettes);
+                RemplirAffichageRecette(_recettesPossibles);
+
+                btnRecetteInd.Content = "Afficher les recettes non-disponibles";
+            }
+            
         }
     }
 }
