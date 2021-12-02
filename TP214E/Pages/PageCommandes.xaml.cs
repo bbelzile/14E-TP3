@@ -27,6 +27,7 @@ namespace TP214E.Pages
         List<Aliment> _listeAlimentsDispo;
         Dictionary<string, int> _dictAlimentsDispo;
         Dictionary<Recette, int> _recettesPossibles;
+        bool _afficher = false;
 
         public PageCommandes()
         {
@@ -121,6 +122,11 @@ namespace TP214E.Pages
 
                 _maCommande.AjouterItemCommande(pRecette);
                 RafraichirListBoxCommande();
+
+                if (_afficher)
+                {
+                    AfficherRecettesIndispo();
+                }
             };
 
             return nouveauBouton;
@@ -179,13 +185,22 @@ namespace TP214E.Pages
         {
             if(_maCommande.Items.Count > 0)
             {
-                _maCommande.DateHeure = DateTime.Now;
-                _CommandeDAL.AjouterCommandeLog(_maCommande);
+                string message = CommandeToString(_maCommande);
+                string titre = "Facture";
+                MessageBoxButton boutons = MessageBoxButton.OKCancel;
+                MessageBoxResult result = MessageBox.Show(message, titre, boutons);
+                if(result == MessageBoxResult.OK)
+                {
+                    _maCommande.DateHeure = DateTime.Now;
+                    _CommandeDAL.AjouterCommandeLog(_maCommande);
 
-                RafraichirListeAlimentsBD();
+                    RafraichirListeAlimentsBD();
 
-                _maCommande = new Commande();
-                RafraichirListBoxCommande();
+
+
+                    _maCommande = new Commande();
+                    RafraichirListBoxCommande();
+                }               
             }           
         }
 
@@ -214,13 +229,11 @@ namespace TP214E.Pages
 
         private void btnRecetteInd_Click(object sender, RoutedEventArgs e)
         {
-            if (btnRecetteInd.Content == "Afficher les recettes non-disponibles")
+            if (!_afficher)
             {
-                foreach (Button bouton in WP.Children)
-                {
-                    bouton.Visibility = Visibility.Visible;
-                }
+                AfficherRecettesIndispo();
                 btnRecetteInd.Content = "Masquer les recettes non-disponibles";
+                _afficher = true;
             }
             else
             {
@@ -228,8 +241,72 @@ namespace TP214E.Pages
                 RemplirAffichageRecette(_recettesPossibles);
 
                 btnRecetteInd.Content = "Afficher les recettes non-disponibles";
+                _afficher = false;
             }
             
+        }
+
+        private void AfficherRecettesIndispo()
+        {
+            foreach (Button bouton in WP.Children)
+            {
+                bouton.Visibility = Visibility.Visible;
+            }
+        }
+
+        private string CommandeToString(Commande pCommande)
+        {
+            Dictionary<Recette, int> dictItemsGroupes = GrouperItemsCommande(pCommande);
+            decimal sousTotal = 0;
+
+            string str = "Votre commande : \n\n";           
+
+            foreach (KeyValuePair<Recette, int> item in dictItemsGroupes)
+            {
+                str += $"{item.Value}  {item.Key.Nom}:";
+                str += TrouverNombreTabulation(item.Key.Nom);
+                str += $"{Math.Round(item.Key.Prix * item.Value, 2)}$\n";
+                sousTotal += item.Key.Prix * item.Value;
+            }
+
+            str += $"Sous-Total:\t{Math.Round(pCommande.Total, 2)}$\n";
+
+            str += $"\nTPS:\t\t{pCommande.Total * (decimal)0.05}$";
+            str += $"\nTVQ:\t\t{Math.Round(pCommande.Total * (decimal)0.09975, 2)}$";
+
+            str += $"\n\nTotal:\t\t{Math.Round(pCommande.Total * (decimal)1.14975, 2)}$";
+
+            return str;
+        }
+
+        private string TrouverNombreTabulation(string pNom)
+        {
+            string str = "";
+            int nb = 3 - (pNom.Length+1) / 4;
+            for (int i = 0; i < nb; i++)
+            {
+                str += "\t";
+            }
+
+            return str;    
+        }
+
+        private Dictionary<Recette, int> GrouperItemsCommande(Commande pCommande)
+        {
+            Dictionary<Recette, int> dictRecetteCommande = new Dictionary<Recette, int>();
+            foreach (var item in pCommande.Items)
+            {
+                if (!dictRecetteCommande.ContainsKey(item))
+                {
+                    dictRecetteCommande.Add(item, 1);
+                }
+                else
+                {
+                    dictRecetteCommande[item] += 1;
+                }
+            }
+
+           return dictRecetteCommande;
         }
     }
 }

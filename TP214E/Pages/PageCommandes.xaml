@@ -121,7 +121,7 @@
                 <RowDefinition Height="20"/>
             </Grid.RowDefinitions>
             <WrapPanel Grid.Row="2" Grid.Column ="1" Orientation="Vertical" x:Name="WP" />
-            <Button Grid.Row="1" Grid.Column="1" Content="Afficher les recettes non-disponibles" x:Name="btnRecetteInd" />
+            <Button Grid.Row="1" Grid.Column="1" Content="Afficher les recettes non-disponibles" x:Name="btnRecetteInd" Click="btnRecetteInd_Click" />
         </Grid>
     </Grid>
 </Page>
