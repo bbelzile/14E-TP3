@@ -81,14 +81,23 @@ namespace TP214E.Data
         {
             if (UtilitaireVerificationFormulaire.VerificationSiTextPasVide(valeurAVerifier))
             {
-                if (UtilitaireVerificationFormulaire.TextContienQueDesChiffre(valeurAVerifier))
+                if (UtilitaireVerificationFormulaire.VerificationLongueureNombre(valeurAVerifier))
                 {
-                    _quantite = int.Parse(valeurAVerifier);
+                    if (UtilitaireVerificationFormulaire.TextContienQueDesChiffre(valeurAVerifier))
+                    {
+                        _quantite = int.Parse(valeurAVerifier);
+                    }
+                    else
+                    {
+                        throw new ArgumentException("Le champ quantite doit comporter que des nombres.");
+                    }
                 }
                 else
                 {
-                    throw new ArgumentException("Le champ quantite doit comporter que des nombres.");
+                    throw new ArgumentException("Le champ quantite doit contenir un maximum de " + UtilitaireVerificationFormulaire.LONGUEUR_MAXIMUM_NOMBRE +
+                        " nombres.");
                 }
+               
             }
             else
             {
@@ -100,7 +109,16 @@ namespace TP214E.Data
         {
             if (UtilitaireVerificationFormulaire.VerificationSiTextPasVide(valeurAVerifier))
             {
-                _nom = valeurAVerifier;
+                if (UtilitaireVerificationFormulaire.VerificationLongueurChaine(valeurAVerifier))
+                {
+                    _nom = valeurAVerifier;
+                }
+                else
+                {
+                    throw new ArgumentException("Le champ nom doit contenir un maximum de " + UtilitaireVerificationFormulaire.LONGUEUR_MAXIMUM_CHAINE +
+                        " caractères.");
+                }
+                
             }
             else
             {
@@ -112,7 +130,15 @@ namespace TP214E.Data
         {
             if (UtilitaireVerificationFormulaire.VerificationSiTextPasVide(valeurAVerifier))
             {
-                _unite = valeurAVerifier;
+                if (UtilitaireVerificationFormulaire.VerificationLongueurChaine(valeurAVerifier))
+                {
+                    _unite = valeurAVerifier;
+                }
+                else
+                {
+                    throw new ArgumentException("Le champ unite doit contenir un maximum de " + UtilitaireVerificationFormulaire.LONGUEUR_MAXIMUM_CHAINE +
+                        " caractères.");
+                }
             }
             else
             {

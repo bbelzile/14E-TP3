@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 using MongoDB.Bson;
+using TP214E.Data.interfaces;
 
 namespace TP214E.Data
 {

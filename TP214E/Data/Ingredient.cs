@@ -2,8 +2,10 @@
 
 namespace TP214E.Data
 {
-    public class Ingredient
+    public class Ingredient : IIngredient
     {
+        public Ingredient() { }
+
         public Ingredient(string pNom, int pQuantite)
         {
             Nom = pNom;
@@ -18,14 +20,22 @@ namespace TP214E.Data
 
         public string Nom { get; set; }
 
-        public int Quantite{ get; set; } 
+        public int Quantite { get; set; }
 
 
         public void VerifierValeurNom(string valeurAVerifier)
         {
             if (UtilitaireVerificationFormulaire.VerificationSiTextPasVide(valeurAVerifier))
             {
-                Nom = valeurAVerifier;
+                if (UtilitaireVerificationFormulaire.VerificationLongueurChaine(valeurAVerifier))
+                {
+                    Nom = valeurAVerifier;
+                }
+                else
+                {
+                    throw new ArgumentException("Le champ nom doit contenir un maximum de " + UtilitaireVerificationFormulaire.LONGUEUR_MAXIMUM_CHAINE +
+                        " caractère.");
+                }
             }
             else
             {
@@ -37,20 +47,29 @@ namespace TP214E.Data
         {
             if (UtilitaireVerificationFormulaire.VerificationSiTextPasVide(valeurAVerifier))
             {
-                if (UtilitaireVerificationFormulaire.TextContienQueDesChiffre(valeurAVerifier))
+                if (UtilitaireVerificationFormulaire.VerificationLongueureNombre(valeurAVerifier))
                 {
-                        if (int.Parse(valeurAVerifier) > 0)
+                    if (UtilitaireVerificationFormulaire.TextContienQueDesChiffre(valeurAVerifier))
+                    {
+                        int valeurAVerifierConvertEnInt = int.Parse(valeurAVerifier);
+                        if (UtilitaireVerificationFormulaire.VerificationNombreEstPositif(valeurAVerifierConvertEnInt))
                         {
-                            Quantite = int.Parse(valeurAVerifier);
+                            Quantite = valeurAVerifierConvertEnInt;
                         }
                         else
                         {
                             throw new ArgumentException("Le champ quantite doit supérieur à 0.");
                         }
+                    }
+                    else
+                    {
+                        throw new ArgumentException("Le champ quantite doit contenir que des chiffres.");
+                    }
                 }
                 else
                 {
-                    throw new ArgumentException("Le champ quantite doit contenir que des chiffres.");
+                    throw new ArgumentException("Le champ quantite doit contenir un maximum de " + UtilitaireVerificationFormulaire.LONGUEUR_MAXIMUM_NOMBRE +
+                        " nombres.");
                 }
             }
             else

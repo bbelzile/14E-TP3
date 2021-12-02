@@ -23,15 +23,13 @@ jobs:
     steps:
     - name: Checkout
       uses: actions/checkout@v2
-      with:
-        fetch-depth: 0
 
     - name: Install .NET Core
       uses: actions/setup-dotnet@v1
       with:
-        dotnet-version: 3.1.100
+        dotnet-version: 3.1.x
         
-    # Add  MSBuild to the PATH: https://github.com/microsoft/setup-msbuild
+    # Add  MSBuild to the PATH: https://github.com/microsoft/setup-msbuild -
     - name: Setup MSBuild.exe
       uses: microsoft/setup-msbuild@v1.0.2
 

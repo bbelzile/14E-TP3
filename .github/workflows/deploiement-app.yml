@@ -1,23 +1,15 @@
 
 name: deploiement-app
-
 on:
   push:
-    branches: 
-      - master
-    tags: 
-      - "TP3-V*"
+    #branches: [master] 
+    tags: ["TP3-V*"]
   pull_request:
-    branches: 
-      - master
-    tags: 
-      - "TP3-V*"
+    branches: [master]
       
 
 jobs:
-
   build:
-
     strategy:
       matrix:
         configuration: [Release]
@@ -26,14 +18,12 @@ jobs:
                              
 
     env:
-      Solution_Name: TP214E   
+      Solution_Path: TP214E.sln   
       Project_Path: TP214E/TP214E.csproj
 
     steps:
     - name: Checkout
       uses: actions/checkout@v2
-      with:
-        fetch-depth: 0
 
     # Install the .NET Core workload
     - name: Install .NET Core
@@ -55,18 +45,19 @@ jobs:
       run: dotnet test
       
     - name: Publish the application
-      run: dotnet publish ${{ env.Project_Path }} -c Release -r win-x64 --self-contained -p:PublishSingleFile=true --no-build
+      run: dotnet publish ${{ env.Project_Path }} -c Release -r win-x64 --self-contained --no-build
       
-    - name: Create a release  
-    - uses: actions/create-release@v1
+    - name: Create a release  part 1
       id: create_release
+      uses: actions/create-release@v1
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       with:
         tag_name: ${{ github.ref }}
         release_name: ${{ github.ref }}
 
-    - uses: csexton/release-asset-action@v2
+    - name: Create a release part 2 
+      uses: csexton/release-asset-action@v2
       with:
         github-token: ${{ secrets.GITHUB_TOKEN }}
         pattern: TP214E/bin/Release/netcoreapp3.1/win-x64/publish/TP214E.exe
