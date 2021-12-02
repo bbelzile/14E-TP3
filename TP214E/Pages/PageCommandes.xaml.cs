@@ -23,7 +23,11 @@ namespace TP214E.Pages
         RecetteDAL _recetteDAL;
         CommandeDAL _CommandeDAL;
         Commande _maCommande;
-        List<Recette> _recettesPossibles;
+        List<Recette> _listeToutesRecettes;
+        List<Aliment> _listeAlimentsDispo;
+        Dictionary<string, int> _dictAlimentsDispo;
+        Dictionary<Recette, int> _recettesPossibles;
+
         public PageCommandes()
         {
             InitializeComponent();
@@ -31,84 +35,90 @@ namespace TP214E.Pages
             _alimentDAL = new AlimentDAL();
             _recetteDAL = new RecetteDAL();
             _CommandeDAL = new CommandeDAL();
-            RecuperationToutesRecettesPossibles();
+            _listeToutesRecettes = _recetteDAL.RechercherToutesLesRecettes();
+            _listeAlimentsDispo = _alimentDAL.RechercherTousLesAliments();
+            _dictAlimentsDispo = ListeAlimentsEnDictionnaire(_listeAlimentsDispo);
+            _recettesPossibles = RecupererLesRecettesPossibles(_dictAlimentsDispo, _listeToutesRecettes);
             RemplirAffichageRecette(_recettesPossibles);
         }
 
-        private void RecuperationToutesRecettesPossibles()
+        private Dictionary<string, int> ListeAlimentsEnDictionnaire(List<Aliment> pListeAlimentsDispo)
         {
-            _recettesPossibles = new List<Recette>();
-            List<Recette> recettesExistantes = _recetteDAL.RechercherToutesLesRecettes();
-            Dictionary<string, int> alimentsDansInventaire = ListeAlimentsEnDictionnaire();
-
-            bool alimentDisponible;
-            foreach (Recette recette in recettesExistantes)
+            Dictionary<string, int> dictAlimentsDispo = new Dictionary<string, int>();
+            foreach (var item in pListeAlimentsDispo)
             {
-                alimentDisponible = true;
-                foreach (var aliment in recette.Ingredients)
+                dictAlimentsDispo.Add(item.Nom, item.Quantite);
+            }
+
+            return dictAlimentsDispo;
+        }
+
+        private Dictionary<Recette, int> RecupererLesRecettesPossibles(Dictionary<string, int> pAliments, List<Recette> pRecettes)
+        {
+            Dictionary<Recette, int> recettesPossibles = new Dictionary<Recette, int>();
+
+            double cbRecetteFaisable;
+            int qtMinimum;
+            foreach (var recette in pRecettes)
+            {
+                qtMinimum = 10000;
+                foreach(var ingredient in recette.Ingredients)
                 {
-                    if (aliment.Quantite >= alimentsDansInventaire[aliment.Nom])
+                    cbRecetteFaisable = Math.Floor((double)(pAliments[ingredient.Nom] / ingredient.Quantite));
+                    if(cbRecetteFaisable < qtMinimum)
                     {
-                        alimentDisponible = false;
+                        qtMinimum = (int)cbRecetteFaisable;
                     }
+                }
 
-                }
-                if (alimentDisponible)
-                {
-                    _recettesPossibles.Add(recette);
-                }
+                recettesPossibles.Add(recette, qtMinimum);
             }
+
+            return recettesPossibles;
         }
 
-        private Dictionary<string, int> ListeAlimentsEnDictionnaire()
+        private void RemplirAffichageRecette(Dictionary<Recette, int> pListeRecettesPossibles)
         {
-            List<Aliment> listeAliments = _alimentDAL.RechercherTousLesAliments();
-            Dictionary<string, int> dictAliments = new Dictionary<string, int>();
-
-            foreach (var aliment in listeAliments)
+            WP.Children.Clear();
+            foreach (KeyValuePair<Recette, int> item in pListeRecettesPossibles)
             {
-                dictAliments.Add(aliment.Nom, aliment.Quantite);
-            }
-            return dictAliments;
-        }
-
-        private void RemplirAffichageRecette(List<Recette> pListeRecettesPossibles)
-        {
-            for (int i = 0; i < pListeRecettesPossibles.Count; i++)
-            {
-                Button nouveauBouton = CreerNouveauBouton(pListeRecettesPossibles[i]);
-                if(i < 4)
-                {
-                    sp1.Children.Add(nouveauBouton);
-                }
-                else if(i < 8)
-                {
-                    sp2.Children.Add(nouveauBouton);
-                }
-                else if(i < 12)
-                {
-                    sp3.Children.Add(nouveauBouton);
-                }
-                else if(i < 16)
-                {
-                    sp4.Children.Add(nouveauBouton);
-                }
+                Button nouveauBouton = CreerNouveauBouton(item.Key, item.Value);
+                WP.Children.Add(nouveauBouton);
             }
         }
 
-        private Button CreerNouveauBouton(Recette pRecette)
+        private Button CreerNouveauBouton(Recette pRecette, int quantitePossible)
         {
             Button nouveauBouton = new Button();
 
             nouveauBouton.Content = pRecette.Nom;
-            nouveauBouton.Name = "Bouton" + pRecette.Nom;
+            nouveauBouton.Name = "Bouton" + pRecette.Id;
             nouveauBouton.Margin = new Thickness(3);
-            nouveauBouton.HorizontalAlignment = HorizontalAlignment.Stretch;
-            nouveauBouton.Style = Resources["survolBoutonPrincipal"] as Style;
+            nouveauBouton.Height = 40;
+            nouveauBouton.Width = 100;
             nouveauBouton.Tag = pRecette;
+            if (quantitePossible == 0)
+            {
+                nouveauBouton.Background = Brushes.Red;
+                nouveauBouton.IsEnabled = false;
+                nouveauBouton.Visibility = Visibility.Collapsed;
+            }
+            else if (quantitePossible < 6)
+            {
+                nouveauBouton.Background = Brushes.Yellow;
+            }
+            else
+            {
+                nouveauBouton.Background = Brushes.Green;
+            }
 
             nouveauBouton.Click += (object sender, RoutedEventArgs e) =>
             {
+                RetirerQuantiteIngredient(pRecette);
+
+                _recettesPossibles = RecupererLesRecettesPossibles(_dictAlimentsDispo, _listeToutesRecettes);
+                RemplirAffichageRecette(_recettesPossibles);
+
                 _maCommande.AjouterItemCommande(pRecette);
                 RafraichirListBoxCommande();
             };
@@ -116,6 +126,21 @@ namespace TP214E.Pages
             return nouveauBouton;
         }
 
+        private void RetirerQuantiteIngredient(Recette pRecette)
+        {
+            foreach (var ingredient in pRecette.Ingredients)
+            {
+                _dictAlimentsDispo[ingredient.Nom] -= ingredient.Quantite;
+            }
+        }
+
+        private void AjouterQuantiteIngredient(Recette pRecette)
+        {
+            foreach (var ingredient in pRecette.Ingredients)
+            {
+                _dictAlimentsDispo[ingredient.Nom] += ingredient.Quantite;
+            }
+        }
 
         private void RafraichirListBoxCommande()
         {
@@ -142,6 +167,9 @@ namespace TP214E.Pages
                 string itemARetirer = lbCommande.SelectedItem.ToString();
                 Recette recetteARetirer = _maCommande.Items.Find(x => x.Nom == itemARetirer);
                 _maCommande.RetirerItemCommande(recetteARetirer);
+                AjouterQuantiteIngredient(recetteARetirer);
+                _recettesPossibles = RecupererLesRecettesPossibles(_dictAlimentsDispo, _listeToutesRecettes);
+                RemplirAffichageRecette(_recettesPossibles);
                 RafraichirListBoxCommande();
             }           
             
@@ -154,24 +182,19 @@ namespace TP214E.Pages
                 _maCommande.DateHeure = DateTime.Now;
                 _CommandeDAL.AjouterCommandeLog(_maCommande);
 
-                RetirerAlimentsUtilisesInventaire();
+                RafraichirListeAlimentsBD();
 
                 _maCommande = new Commande();
                 RafraichirListBoxCommande();
             }           
         }
 
-        private void RetirerAlimentsUtilisesInventaire()
+        private void RafraichirListeAlimentsBD()
         {
-            List<Aliment> ListeTousLesAliments = _alimentDAL.RechercherTousLesAliments();
-            foreach (Recette item in _maCommande.Items)
+            foreach (var aliment in _listeAlimentsDispo)
             {
-                foreach (var aliment in item.Ingredients)
-                {
-                    Aliment alimentAModifier = ListeTousLesAliments.Find(x => x.Nom == aliment.Nom);
-                    alimentAModifier.Quantite -= aliment.Quantite;
-                    _alimentDAL.ModifierAliment(alimentAModifier);
-                }
+                aliment.Quantite = _dictAlimentsDispo[aliment.Nom];
+                _alimentDAL.ModifierAliment(aliment);
             }
         }
 
@@ -187,6 +210,26 @@ namespace TP214E.Pages
             {
                 this.NavigationService.GoBack();
             }
+        }
+
+        private void btnRecetteInd_Click(object sender, RoutedEventArgs e)
+        {
+            if (btnRecetteInd.Content == "Afficher les recettes non-disponibles")
+            {
+                foreach (Button bouton in WP.Children)
+                {
+                    bouton.Visibility = Visibility.Visible;
+                }
+                btnRecetteInd.Content = "Masquer les recettes non-disponibles";
+            }
+            else
+            {
+                _recettesPossibles = RecupererLesRecettesPossibles(_dictAlimentsDispo, _listeToutesRecettes);
+                RemplirAffichageRecette(_recettesPossibles);
+
+                btnRecetteInd.Content = "Afficher les recettes non-disponibles";
+            }
+            
         }
     }
 }
