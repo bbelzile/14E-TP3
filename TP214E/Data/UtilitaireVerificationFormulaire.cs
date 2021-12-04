@@ -59,5 +59,10 @@ namespace TP214E.Data
                 return false;
             }
         }
+
+        public static bool VerificationValeurEstDansEnumCategorie(int valeurAVerifier)
+        {
+            return Enum.IsDefined(typeof(Categories), valeurAVerifier);
+        }
     }
 }
