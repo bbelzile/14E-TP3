@@ -152,7 +152,7 @@ namespace TP214E.Data
 
         public void VerifierValeurCategorie(int valeurAVerifier)
         {
-            if(Enum.IsDefined(typeof(Categories), valeurAVerifier))
+            if(UtilitaireVerificationFormulaire.VerificationValeurEstDansEnumCategorie(valeurAVerifier))
             {
                 Categories categorie;
                 categorie =  (Categories) valeurAVerifier;

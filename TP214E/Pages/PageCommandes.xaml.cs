@@ -11,6 +11,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using TP214E.Data;
+using System.Linq;
 
 namespace TP214E.Pages
 {
@@ -31,10 +32,49 @@ namespace TP214E.Pages
         public PageCommandes()
         {
             InitializeComponent();
+
             _maCommande = new Commande();
             _alimentDAL = new AlimentDAL();
             _recetteDAL = new RecetteDAL();
             _CommandeDAL = new CommandeDAL();
+
+            ChargerRecettes();
+            ChargerCategories();
+
+            optAucunFiltre.IsChecked = true;
+        }
+
+        public void ChargerCategories()
+        {
+            InstancierCheminValeurCboCategorie();
+
+            foreach (int valeurCategorie in Enum.GetValues(typeof(Categories)))
+            {
+                int valeurDeLaCategorie = valeurCategorie;
+                string nomDeLaCategorie = Enum.GetName(typeof(Categories), valeurCategorie);
+
+                KeyValuePair<int, string> clefValeurCategorie =
+                    new KeyValuePair<int, string>(valeurDeLaCategorie, nomDeLaCategorie);
+
+                this.cboCategorie.Items.Add(clefValeurCategorie);
+            }
+
+            KeyValuePair<int, string> clefValeurParDefaut =
+                    new KeyValuePair<int, string>(-1, "Aucune Categorie");
+
+            this.cboCategorie.Items.Add(clefValeurParDefaut);
+
+            this.cboCategorie.SelectedItem = clefValeurParDefaut;
+        }
+
+        public void InstancierCheminValeurCboCategorie()
+        {
+            this.cboCategorie.SelectedValuePath = "Key";
+            this.cboCategorie.DisplayMemberPath = "Value";
+        }
+
+        public void ChargerRecettes()
+        {
             _listeToutesRecettes = _recetteDAL.RechercherToutesLesRecettes();
             _listeAlimentsDispo = _alimentDAL.RechercherTousLesAliments();
             _dictAlimentsDispo = ListeAlimentsEnDictionnaire(_listeAlimentsDispo);
@@ -53,7 +93,7 @@ namespace TP214E.Pages
             return dictAlimentsDispo;
         }
 
-        private Dictionary<Recette, int> RecupererLesRecettesPossibles(Dictionary<string, int> pAliments, List<Recette> pRecettes)
+        public static Dictionary<Recette, int> RecupererLesRecettesPossibles(Dictionary<string, int> pAliments, List<Recette> pRecettes)
         {
             Dictionary<Recette, int> recettesPossibles = new Dictionary<Recette, int>();
 
@@ -173,6 +213,81 @@ namespace TP214E.Pages
                 RafraichirListBoxCommande();
             }           
             
+        }
+
+        private void TrierRecette(object sender, RoutedEventArgs e)
+        {
+            Dictionary<Recette, int> recetteTriees = new Dictionary<Recette, int>();
+
+            _recettesPossibles = RecupererLesRecettesPossibles(_dictAlimentsDispo, _listeToutesRecettes);
+
+            recetteTriees = SelectionTrieRecette();
+
+            _recettesPossibles = recetteTriees;
+            RemplirAffichageRecette(_recettesPossibles);
+        }
+
+        private Dictionary<Recette, int> SelectionTrieRecette()
+        {
+            Dictionary<Recette, int> recetteTriees = new Dictionary<Recette, int>();
+
+            if (!(bool)optAucunFiltre.IsChecked)
+            {
+                if ((bool)optNom.IsChecked)
+                {
+                    recetteTriees = TrierRecettesParNom(_dictAlimentsDispo,_recetteDAL);
+                }
+                else
+                {
+                    recetteTriees = TrierRecetteParQuantite(_recettesPossibles);
+                }
+            }
+            else
+            {
+                recetteTriees = _recettesPossibles;
+            }
+
+            KeyValuePair<int, string> paireClefValeur = (KeyValuePair<int, string>)cboCategorie.SelectedItem;
+            int categorie = paireClefValeur.Key;
+
+            recetteTriees = TrierRecettesParCategorie(recetteTriees, categorie);
+
+            return recetteTriees;
+        }
+
+        public Dictionary<Recette, int> TrierRecettesParNom(Dictionary<string, int> aliments, RecetteDAL recetteDAL)
+        {
+            List<Recette> recettesTrieesParNom = recetteDAL.RechercherTLesRecettesParNom();
+            _listeToutesRecettes = recettesTrieesParNom;
+
+            return RecupererLesRecettesPossibles(aliments, recettesTrieesParNom);
+        }
+
+        public static Dictionary<Recette, int> TrierRecettesParCategorie(Dictionary<Recette, int> recetteATrier, int categorie)
+        {
+            Dictionary<Recette, int> recetteTriees = new Dictionary<Recette, int>();
+
+            if (UtilitaireVerificationFormulaire.VerificationValeurEstDansEnumCategorie(categorie))
+            {
+                foreach(KeyValuePair<Recette, int> uneRecette in recetteATrier)
+                {
+                    if (uneRecette.Key.Categorie == (Categories)categorie)
+                    {
+                        recetteTriees.Add(uneRecette.Key,uneRecette.Value);
+                    }
+                }
+            }
+            else
+            {
+                return recetteATrier;
+            }
+
+            return recetteTriees;
+        }
+
+        public static Dictionary<Recette, int> TrierRecetteParQuantite(Dictionary<Recette, int> recettes)
+        {
+            return recettes.OrderByDescending(x => x.Value).ToDictionary(x => x.Key,y => y.Value);
         }
 
         private void btnCommander_Click(object sender, RoutedEventArgs e)

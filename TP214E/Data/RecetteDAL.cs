@@ -1,4 +1,5 @@
-﻿using MongoDB.Driver;
+﻿using MongoDB.Bson;
+using MongoDB.Driver;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -26,6 +27,24 @@ namespace TP214E.Data
             {
                 IMongoDatabase db = mongoDBClient.GetDatabase(NOM_DE_LA_BD);
                 recettes = db.GetCollection<Recette>(NOM_DE_LA_COLLECTION_RECETTE).Aggregate().ToList();
+
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Impossible de se connecter à la base de données " + ex.Message, "Erreur", MessageBoxButton.OK, MessageBoxImage.Error);
+
+            }
+            return recettes;
+        }
+
+        public List<Recette> RechercherTLesRecettesParNom()
+        {
+            var recettes = new List<Recette>();
+            try
+            {
+                IMongoDatabase db = mongoDBClient.GetDatabase(NOM_DE_LA_BD);
+                recettes = db.GetCollection<Recette>(NOM_DE_LA_COLLECTION_RECETTE).Find(FilterDefinition<Recette>.Empty).
+                    Sort(Builders<Recette>.Sort.Ascending("Nom")).ToList();
 
             }
             catch (Exception ex)
