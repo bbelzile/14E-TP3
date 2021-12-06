@@ -134,5 +134,25 @@ namespace TP214E.Data.Tests
 
             Assert.IsTrue(resultat);
         }
+
+        [TestMethod()]
+        public void VerificationValeurEstDansEnumCategorieRetourneTrueSiValeurEstDansEnumCategorie()
+        {
+            int entierPositif = 3;
+
+            bool resultat = UtilitaireVerificationFormulaire.VerificationValeurEstDansEnumCategorie(entierPositif);
+
+            Assert.IsTrue(resultat);
+        }
+
+        [TestMethod()]
+        public void VerificationValeurEstDansEnumCategorieRetourneFalseSiValeurEstPasDansEnumCategorie()
+        {
+            int entierPositif = -1;
+
+            bool resultat = UtilitaireVerificationFormulaire.VerificationValeurEstDansEnumCategorie(entierPositif);
+
+            Assert.IsFalse(resultat);
+        }
     }
 }

@@ -7,7 +7,7 @@ using System.Windows;
 
 namespace TP214E.Data
 {
-    public class RecetteDAL : DAL
+    public class RecetteDAL : DAL, IRecetteDAL
     {
         const string NOM_DE_LA_COLLECTION_RECETTE = "Recettes";
 

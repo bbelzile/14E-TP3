@@ -12,6 +12,7 @@ using System.Windows.Navigation;
 using System.Windows.Shapes;
 using TP214E.Data;
 using System.Linq;
+using TP214E.Data.Utilitaire;
 
 namespace TP214E.Pages
 {
@@ -77,44 +78,9 @@ namespace TP214E.Pages
         {
             _listeToutesRecettes = _recetteDAL.RechercherToutesLesRecettes();
             _listeAlimentsDispo = _alimentDAL.RechercherTousLesAliments();
-            _dictAlimentsDispo = ListeAlimentsEnDictionnaire(_listeAlimentsDispo);
-            _recettesPossibles = RecupererLesRecettesPossibles(_dictAlimentsDispo, _listeToutesRecettes);
+            _dictAlimentsDispo = UtilitairePageCommande.ListeAlimentsEnDictionnaire(_listeAlimentsDispo);
+            _recettesPossibles = UtilitairePageCommande.RecupererLesRecettesPossibles(_dictAlimentsDispo, _listeToutesRecettes);
             RemplirAffichageRecette(_recettesPossibles);
-        }
-
-        private Dictionary<string, int> ListeAlimentsEnDictionnaire(List<Aliment> pListeAlimentsDispo)
-        {
-            Dictionary<string, int> dictAlimentsDispo = new Dictionary<string, int>();
-            foreach (var item in pListeAlimentsDispo)
-            {
-                dictAlimentsDispo.Add(item.Nom, item.Quantite);
-            }
-
-            return dictAlimentsDispo;
-        }
-
-        public static Dictionary<Recette, int> RecupererLesRecettesPossibles(Dictionary<string, int> pAliments, List<Recette> pRecettes)
-        {
-            Dictionary<Recette, int> recettesPossibles = new Dictionary<Recette, int>();
-
-            double cbRecetteFaisable;
-            int qtMinimum;
-            foreach (var recette in pRecettes)
-            {
-                qtMinimum = 10000;
-                foreach(var ingredient in recette.Ingredients)
-                {
-                    cbRecetteFaisable = Math.Floor((double)(pAliments[ingredient.Nom] / ingredient.Quantite));
-                    if(cbRecetteFaisable < qtMinimum)
-                    {
-                        qtMinimum = (int)cbRecetteFaisable;
-                    }
-                }
-
-                recettesPossibles.Add(recette, qtMinimum);
-            }
-
-            return recettesPossibles;
         }
 
         private void RemplirAffichageRecette(Dictionary<Recette, int> pListeRecettesPossibles)
@@ -156,7 +122,7 @@ namespace TP214E.Pages
             {
                 RetirerQuantiteIngredient(pRecette);
 
-                _recettesPossibles = RecupererLesRecettesPossibles(_dictAlimentsDispo, _listeToutesRecettes);
+                _recettesPossibles = UtilitairePageCommande.RecupererLesRecettesPossibles(_dictAlimentsDispo, _listeToutesRecettes);
                 RemplirAffichageRecette(_recettesPossibles);
 
                 _maCommande.AjouterItemCommande(pRecette);
@@ -208,7 +174,7 @@ namespace TP214E.Pages
                 Recette recetteARetirer = _maCommande.Items.Find(x => x.Nom == itemARetirer);
                 _maCommande.RetirerItemCommande(recetteARetirer);
                 AjouterQuantiteIngredient(recetteARetirer);
-                _recettesPossibles = RecupererLesRecettesPossibles(_dictAlimentsDispo, _listeToutesRecettes);
+                _recettesPossibles = UtilitairePageCommande.RecupererLesRecettesPossibles(_dictAlimentsDispo, _listeToutesRecettes);
                 RemplirAffichageRecette(_recettesPossibles);
                 RafraichirListBoxCommande();
             }           
@@ -219,7 +185,7 @@ namespace TP214E.Pages
         {
             Dictionary<Recette, int> recetteTriees = new Dictionary<Recette, int>();
 
-            _recettesPossibles = RecupererLesRecettesPossibles(_dictAlimentsDispo, _listeToutesRecettes);
+            _recettesPossibles = UtilitairePageCommande.RecupererLesRecettesPossibles(_dictAlimentsDispo, _listeToutesRecettes);
 
             recetteTriees = SelectionTrieRecette();
 
@@ -235,11 +201,11 @@ namespace TP214E.Pages
             {
                 if ((bool)optNom.IsChecked)
                 {
-                    recetteTriees = TrierRecettesParNom(_dictAlimentsDispo,_recetteDAL);
+                    recetteTriees = UtilitairePageCommande.TrierRecettesParNom(_dictAlimentsDispo,_recetteDAL);
                 }
                 else
                 {
-                    recetteTriees = TrierRecetteParQuantite(_recettesPossibles);
+                    recetteTriees = UtilitairePageCommande.TrierRecetteParQuantite(_recettesPossibles);
                 }
             }
             else
@@ -250,45 +216,11 @@ namespace TP214E.Pages
             KeyValuePair<int, string> paireClefValeur = (KeyValuePair<int, string>)cboCategorie.SelectedItem;
             int categorie = paireClefValeur.Key;
 
-            recetteTriees = TrierRecettesParCategorie(recetteTriees, categorie);
+            recetteTriees = UtilitairePageCommande.TrierRecettesParCategorie(recetteTriees, categorie);
 
             return recetteTriees;
         }
 
-        public Dictionary<Recette, int> TrierRecettesParNom(Dictionary<string, int> aliments, RecetteDAL recetteDAL)
-        {
-            List<Recette> recettesTrieesParNom = recetteDAL.RechercherTLesRecettesParNom();
-            _listeToutesRecettes = recettesTrieesParNom;
-
-            return RecupererLesRecettesPossibles(aliments, recettesTrieesParNom);
-        }
-
-        public static Dictionary<Recette, int> TrierRecettesParCategorie(Dictionary<Recette, int> recetteATrier, int categorie)
-        {
-            Dictionary<Recette, int> recetteTriees = new Dictionary<Recette, int>();
-
-            if (UtilitaireVerificationFormulaire.VerificationValeurEstDansEnumCategorie(categorie))
-            {
-                foreach(KeyValuePair<Recette, int> uneRecette in recetteATrier)
-                {
-                    if (uneRecette.Key.Categorie == (Categories)categorie)
-                    {
-                        recetteTriees.Add(uneRecette.Key,uneRecette.Value);
-                    }
-                }
-            }
-            else
-            {
-                return recetteATrier;
-            }
-
-            return recetteTriees;
-        }
-
-        public static Dictionary<Recette, int> TrierRecetteParQuantite(Dictionary<Recette, int> recettes)
-        {
-            return recettes.OrderByDescending(x => x.Value).ToDictionary(x => x.Key,y => y.Value);
-        }
 
         private void btnCommander_Click(object sender, RoutedEventArgs e)
         {
@@ -339,7 +271,7 @@ namespace TP214E.Pages
             }
             else
             {
-                _recettesPossibles = RecupererLesRecettesPossibles(_dictAlimentsDispo, _listeToutesRecettes);
+                _recettesPossibles = UtilitairePageCommande.RecupererLesRecettesPossibles(_dictAlimentsDispo, _listeToutesRecettes);
                 RemplirAffichageRecette(_recettesPossibles);
 
                 btnRecetteInd.Content = "Afficher les recettes non-disponibles";
