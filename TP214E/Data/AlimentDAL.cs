@@ -6,7 +6,7 @@ using System.Windows;
 
 namespace TP214E.Data
 {
-    public class AlimentDAL : DAL
+    public class AlimentDAL : DAL, IAlimentDAL
     {
         const string NOM_DE_LA_COLLECTION_ALIMENT = "Aliments";
 
