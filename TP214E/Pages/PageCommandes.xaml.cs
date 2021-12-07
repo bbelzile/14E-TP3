@@ -105,17 +105,17 @@ namespace TP214E.Pages
             nouveauBouton.Tag = pRecette;
             if (quantitePossible == 0)
             {
-                nouveauBouton.Background = Brushes.Red;
+                nouveauBouton.Style = (Style) FindResource("survolBoutonPrincipalRouge");
                 nouveauBouton.IsEnabled = false;
                 nouveauBouton.Visibility = Visibility.Collapsed;
             }
             else if (quantitePossible < 6)
             {
-                nouveauBouton.Background = Brushes.Yellow;
+                nouveauBouton.Style = (Style)FindResource("survolBoutonPrincipalJaune");
             }
             else
             {
-                nouveauBouton.Background = Brushes.Green;
+                nouveauBouton.Style = (Style)FindResource("survolBoutonPrincipal");
             }
 
             nouveauBouton.Click += (object sender, RoutedEventArgs e) =>

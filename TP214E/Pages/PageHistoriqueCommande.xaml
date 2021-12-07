@@ -61,11 +61,17 @@
         </Style>
         <Style x:Key="ListViewStyle" TargetType="{x:Type ListView}">
             <Setter Property="Foreground" Value="White" />
-            <Setter Property="Background" Value="Black"/>
+            <Setter Property="Background" Value="#00F0F8FF"/>
         </Style>
     </Page.Resources>
 
-    <Grid x:Name="GrilleHistoriqueCommandes" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Background="Black">
+    <Grid x:Name="GrilleHistoriqueCommandes" VerticalAlignment="Stretch" HorizontalAlignment="Stretch">
+        <Grid.Background>
+            <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                <GradientStop Color="Black" Offset="1"/>
+                <GradientStop Color="#FF254F8C" Offset="0"/>
+            </LinearGradientBrush>
+        </Grid.Background>
         <Grid.RowDefinitions>
             <RowDefinition Height="*" />
             <RowDefinition Height="10*" />
@@ -118,9 +124,9 @@
 
                 <GridView AllowsColumnReorder="true" ColumnHeaderToolTip="Informations des recettes">
 
-                    <GridViewColumn DisplayMemberBinding="{Binding Nom}" Header="Nom" Width="200"/>
+                    <GridViewColumn DisplayMemberBinding="{Binding Nom}" Header="Nom" Width="180"/>
 
-                    <GridViewColumn DisplayMemberBinding="{Binding Prix}" Header="Prix" Width="200"/>
+                    <GridViewColumn DisplayMemberBinding="{Binding Prix}" Header="Prix" Width="180"/>
                 </GridView>
 
             </ListView.View>

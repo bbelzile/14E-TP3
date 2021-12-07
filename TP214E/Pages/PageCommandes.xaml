@@ -29,6 +29,48 @@
                 </Trigger>
             </Style.Triggers>
         </Style>
+        <Style x:Key="survolBoutonPrincipalJaune" TargetType="Button">
+            <Setter Property="Background" Value="#E0DA2F"/>
+            <Setter Property="BorderBrush" Value="#6F6F6F"/>
+            <Setter Property="Foreground" Value="White"/>
+
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="{x:Type Button}">
+                        <Border Background="{TemplateBinding Background}" BorderBrush="White" BorderThickness="1">
+                            <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                        </Border>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+            <Style.Triggers>
+                <Trigger Property="IsMouseOver" Value="True">
+                    <Setter Property="Background" Value="White"/>
+                    <Setter Property="Foreground" Value="Black"/>
+                </Trigger>
+            </Style.Triggers>
+        </Style>
+        <Style x:Key="survolBoutonPrincipalRouge" TargetType="Button">
+            <Setter Property="Background" Value="#C9372D"/>
+            <Setter Property="BorderBrush" Value="White"/>
+            <Setter Property="Foreground" Value="White"/>
+
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="{x:Type Button}">
+                        <Border Background="{TemplateBinding Background}" BorderBrush="White" BorderThickness="1">
+                            <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                        </Border>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+            <Style.Triggers>
+                <Trigger Property="IsMouseOver" Value="True">
+                    <Setter Property="Background" Value="White"/>
+                    <Setter Property="Foreground" Value="Black"/>
+                </Trigger>
+            </Style.Triggers>
+        </Style>
         <Style x:Key="survolBouton" TargetType="Button">
             <Setter Property="Background" Value="Black"/>
             <Setter Property="BorderBrush" Value="White"/>
@@ -59,11 +101,29 @@
         </Style>
         <Style x:Key="ListBoxStyle" TargetType="{x:Type ListBox}">
             <Setter Property="Foreground" Value="White" />
-            <Setter Property="Background" Value="Black"/>
+            <Setter Property="Background" Value="#B2000000"/>
         </Style>
     </Page.Resources>
+    <Page.Foreground>
+        <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+            <GradientStop Color="Black"/>
+            <GradientStop Color="White" Offset="1"/>
+        </LinearGradientBrush>
+    </Page.Foreground>
+    <Page.Background>
+        <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+            <GradientStop Color="Black"/>
+            <GradientStop Color="White" Offset="1"/>
+        </LinearGradientBrush>
+    </Page.Background>
 
-    <Grid Background="Black">
+    <Grid>
+        <Grid.Background>
+            <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                <GradientStop Color="Black" Offset="1"/>
+                <GradientStop Color="#FF254F8C" Offset="0.004"/>
+            </LinearGradientBrush>
+        </Grid.Background>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="*"/>
             <ColumnDefinition Width="4*"/>
@@ -77,16 +137,16 @@
                 <RowDefinition Height="Auto"/>
                 <RowDefinition Height="Auto"/>
             </Grid.RowDefinitions>
-            <GroupBox x:Name="gbCommande" Header="Commande" Grid.Row="0" BorderBrush="White" Margin="2" Height="auto" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Foreground="#FF00FF23">
+            <GroupBox x:Name="gbCommande" Header="Commande" Grid.Row="0" BorderBrush="White" Margin="2" Height="auto" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Foreground="white">
                 <ListBox x:Name="lbCommande">
                     <ListBox.Resources>
                         <Style BasedOn="{StaticResource ListBoxItemStyle}" TargetType="{x:Type ListBoxItem}" />
                         <Style BasedOn="{StaticResource ListBoxStyle}" TargetType="{x:Type ListBox}" />
                     </ListBox.Resources>
                 </ListBox>
-                
+
             </GroupBox >
-            <Label Grid.Row="1" x:Name="lblTotal" Content="" Background="Black" Foreground="White" HorizontalContentAlignment="Right"/>
+            <Label Grid.Row="1" x:Name="lblTotal" Content=""  Foreground="White" HorizontalContentAlignment="Right"/>
             <Button Grid.Row="2" x:Name="btnRetirer" Click="btnRetirer_Click" Content="Retirer" Margin="4,0,4,4">
                 <Button.Style>
                     <Style BasedOn="{StaticResource survolBouton}" TargetType="{x:Type Button}" />
@@ -108,7 +168,13 @@
                 </Button.Style>
             </Button>
         </Grid>
-        <Grid Grid.Column="1" Background="Black">
+        <Grid Grid.Column="1">
+            <Grid.Background>
+                <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                    <GradientStop Color="Black" Offset="1"/>
+                    <GradientStop Color="#FF254F8C" Offset="0"/>
+                </LinearGradientBrush>
+            </Grid.Background>
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="20"/>
                 <ColumnDefinition Width="*"/>
@@ -116,28 +182,37 @@
             </Grid.ColumnDefinitions>
             <Grid.RowDefinitions>
                 <RowDefinition Height="20"/>
-                <RowDefinition Height="40"/>
+                <RowDefinition Height="60"/>
                 <RowDefinition Height="*"/>
                 <RowDefinition Height="20"/>
             </Grid.RowDefinitions>
-            <WrapPanel Grid.Row="2" Grid.Column ="1" Orientation="Vertical" x:Name="WP" />
+            <WrapPanel Grid.Row="2" Grid.Column ="1" Orientation="Vertical" Margin="10,10,10,10" x:Name="WP" />
 
-            <Grid Grid.Row="1" Grid.Column="1">
+            <Grid Grid.Row="1" Grid.Column="1" VerticalAlignment="Top" Background="#7F000000">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="5*"/>
                     <ColumnDefinition Width="4*"/>
                 </Grid.ColumnDefinitions>
-                <GroupBox BorderBrush="White" Grid.Column="0">
+                <GroupBox BorderBrush="White" Foreground="white" Header="Filtres"  Grid.Column="0" Margin="5,5,0,5" VerticalAlignment="Top" HorizontalAlignment="Stretch">
                     <StackPanel Orientation="Horizontal">
                         <RadioButton x:Name="optNom" Content="Nom" Foreground="White" Margin="0,0,5,0" VerticalAlignment="Center"/>
                         <RadioButton x:Name="optQuantite" Content="Quantite" Foreground="White" Margin="0,0,5,0" VerticalAlignment="Center"/>
                         <RadioButton x:Name="optAucunFiltre" Content="Aucun" Foreground="White" Margin="0,0,5,0" VerticalAlignment="Center"/>
                         <ComboBox x:Name="cboCategorie"  Margin="10,0,10,0" Height="20" Width="60" >
                         </ComboBox>
-                        <Button x:Name="btnTrier" Content="Trier" Margin="10,0,10,0" Padding="10,0,10,0" Height="20" Click="TrierRecette"></Button>
+                        <Button x:Name="btnTrier" Content="Trier" Margin="10,0,10,0" Height="20" Click="TrierRecette" Width="40">
+                            <Button.Style>
+                                <Style BasedOn="{StaticResource survolBoutonPrincipal}" TargetType="{x:Type Button}" />
+                            </Button.Style>
+                        </Button>
                     </StackPanel>
                 </GroupBox>
-                <Button Grid.Row="1" Grid.Column="1" Content="Afficher les recettes non-disponibles" x:Name="btnRecetteInd" Margin="10,10,10,10"/>
+                <Button Grid.Row="1" Grid.Column="1" Content="Afficher les recettes non-disponibles"
+                        x:Name="btnRecetteInd" Margin="10,10,10,10" VerticalAlignment="Stretch" HorizontalAlignment="Stretch">
+                    <Button.Style>
+                        <Style BasedOn="{StaticResource survolBouton}" TargetType="{x:Type Button}" />
+                    </Button.Style>
+                </Button>
             </Grid>
         </Grid>
     </Grid>
