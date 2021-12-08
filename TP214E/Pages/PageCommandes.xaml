@@ -97,11 +97,6 @@
                     <Style BasedOn="{StaticResource survolBouton}" TargetType="{x:Type Button}" />
                 </Button.Style>
             </Button>
-            <Button Grid.Row="4" x:Name="btnHistorique" Click="btnHistorique_Click" Content="Historique" Margin="4,0,4,4">
-                <Button.Style>
-                    <Style BasedOn="{StaticResource survolBouton}" TargetType="{x:Type Button}" />
-                </Button.Style>
-            </Button>
             <Button Grid.Row="5" x:Name="btnRetour" Click="btnRetour_Click" Content="Retour" Margin="4,0,4,4">
                 <Button.Style>
                     <Style BasedOn="{StaticResource survolBouton}" TargetType="{x:Type Button}" />
@@ -118,16 +113,30 @@
                 <RowDefinition Height="20"/>
                 <RowDefinition Height="40"/>
                 <RowDefinition Height="*"/>
-                <RowDefinition Height="40"/>
+                <RowDefinition Height="50"/>
                 <RowDefinition Height="20"/>
             </Grid.RowDefinitions>
             <WrapPanel Grid.Row="2" Grid.Column ="1" Orientation="Vertical" x:Name="WP" />
             <Button Grid.Row="1" Grid.Column="1" Content="Afficher les recettes non-disponibles" x:Name="btnRecetteInd" Click="btnRecetteInd_Click" />
-            <Button Grid.Row="3" Grid.Column="1" x:Name="btnMulti" Content="Multiplier la commande" Margin="4,0,4,4">
-                <Button.Style>
-                    <Style BasedOn="{StaticResource survolBouton}" TargetType="{x:Type Button}" />
-                </Button.Style>
-            </Button>
+            <Grid Grid.Row="3" Grid.Column="1">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+                <GroupBox Grid.Column="0" Grid.ColumnSpan="2" Header="Multiplier la commande" Foreground="#FF00FF23"/>
+                <ComboBox x:Name="cbbMulti" Grid.Column="0" Margin="6,16,6,6"/>
+                <Button Grid.Column="1" x:Name="btnMulti" Content="Multiplier" Margin="6,16,6,6" Click="btnMulti_Click">
+                    <Button.Style>
+                        <Style BasedOn="{StaticResource survolBouton}" TargetType="{x:Type Button}" />
+                    </Button.Style>
+                </Button>
+                <Button Grid.Column="2" x:Name="btnHistorique" Click="btnHistorique_Click" Content="Voir l'historique des commandes" Margin="6">
+                    <Button.Style>
+                        <Style BasedOn="{StaticResource survolBouton}" TargetType="{x:Type Button}" />
+                    </Button.Style>
+                </Button>
+            </Grid>
         </Grid>
     </Grid>
 </Page>
