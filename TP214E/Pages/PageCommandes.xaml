@@ -84,7 +84,7 @@
                         <Style BasedOn="{StaticResource ListBoxStyle}" TargetType="{x:Type ListBox}" />
                     </ListBox.Resources>
                 </ListBox>
-                
+
             </GroupBox >
             <Label Grid.Row="1" x:Name="lblTotal" Content="" Background="Black" Foreground="White" HorizontalContentAlignment="Right"/>
             <Button Grid.Row="2" x:Name="btnRetirer" Click="btnRetirer_Click" Content="Retirer" Margin="4,0,4,4">
@@ -118,10 +118,16 @@
                 <RowDefinition Height="20"/>
                 <RowDefinition Height="40"/>
                 <RowDefinition Height="*"/>
+                <RowDefinition Height="40"/>
                 <RowDefinition Height="20"/>
             </Grid.RowDefinitions>
             <WrapPanel Grid.Row="2" Grid.Column ="1" Orientation="Vertical" x:Name="WP" />
             <Button Grid.Row="1" Grid.Column="1" Content="Afficher les recettes non-disponibles" x:Name="btnRecetteInd" Click="btnRecetteInd_Click" />
+            <Button Grid.Row="3" Grid.Column="1" x:Name="btnMulti" Content="Multiplier la commande" Margin="4,0,4,4">
+                <Button.Style>
+                    <Style BasedOn="{StaticResource survolBouton}" TargetType="{x:Type Button}" />
+                </Button.Style>
+            </Button>
         </Grid>
     </Grid>
 </Page>
