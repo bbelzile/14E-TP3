@@ -90,17 +90,22 @@ namespace TP214E.Pages
 
         public Recette ChercherInformationFormulaire()
         {
-            Recette nouvelleRecette;
+            Recette nouvelleRecette = new Recette();
 
             string nom = txtNom.Text;
             string prix = iudPrix.Text;
 
-            KeyValuePair<int, string> paireClefValeur = (KeyValuePair<int, string>)cboCategorie.SelectedItem;
-            int categorie = paireClefValeur.Key;
+            if (UtilitaireVerificationFormulaire.VerificationSiValeurPasNulle(cboCategorie.SelectedItem))
+            {
+                KeyValuePair<int, string> paireClefValeur = (KeyValuePair<int, string>)cboCategorie.SelectedItem;
+                int categorie = paireClefValeur.Key;
 
-            nouvelleRecette = new Recette(nom, _ingredients, prix, categorie);
+                nouvelleRecette = new Recette(nom, _ingredients, prix, categorie);
+            }
+
 
             return nouvelleRecette;
+
         }
 
         private void MenuItem_Click(object sender, RoutedEventArgs e)

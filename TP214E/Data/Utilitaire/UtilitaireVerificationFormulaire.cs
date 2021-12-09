@@ -25,7 +25,7 @@ namespace TP214E.Data
         public static bool VerificationLongueurChaine(string chaineAVerifier)
         {
 
-            if (chaineAVerifier.Length > LONGUEUR_MAXIMUM_CHAINE)
+            if (chaineAVerifier != null && chaineAVerifier.Length > LONGUEUR_MAXIMUM_CHAINE)
             {
                 return false;
             }
@@ -63,6 +63,18 @@ namespace TP214E.Data
         public static bool VerificationValeurEstDansEnumCategorie(int valeurAVerifier)
         {
             return Enum.IsDefined(typeof(Categories), valeurAVerifier);
+        }
+
+        public static bool VerificationSiValeurPasNulle(Object valeurAVerifier)
+        {
+            if(valeurAVerifier != null)
+            {
+                return true;
+            }
+            else
+            {
+                throw new Exception("Un champ du formulaire est vide.");
+            }
         }
     }
 }

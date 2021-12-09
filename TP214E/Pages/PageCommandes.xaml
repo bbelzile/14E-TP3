@@ -136,6 +136,7 @@
                 <RowDefinition Height="Auto"/>
                 <RowDefinition Height="Auto"/>
                 <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
             </Grid.RowDefinitions>
             <GroupBox x:Name="gbCommande" Header="Commande" Grid.Row="0" BorderBrush="White" Margin="2" Height="auto" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Foreground="white">
                 <ListBox x:Name="lbCommande">
@@ -146,23 +147,36 @@
                 </ListBox>
 
             </GroupBox >
+            <Grid Grid.Row="2" Grid.Column="1" Margin="4,0,4,5">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+                <GroupBox Grid.Column="0" Grid.ColumnSpan="2" Header="Multiplier la commande" Foreground="White"/>
+                <ComboBox x:Name="cbbMulti" Grid.Column="0" Margin="6,16,6,6"/>
+                <Button Grid.Column="1" x:Name="btnMulti" Content="Multiplier" Margin="6,16,6,6" Click="btnMulti_Click">
+                    <Button.Style>
+                        <Style BasedOn="{StaticResource survolBouton}" TargetType="{x:Type Button}" />
+                    </Button.Style>
+                </Button>
+            </Grid>
             <Label Grid.Row="1" x:Name="lblTotal" Content=""  Foreground="White" HorizontalContentAlignment="Right"/>
-            <Button Grid.Row="2" x:Name="btnRetirer" Click="btnRetirer_Click" Content="Retirer" Margin="4,0,4,4">
+            <Button Grid.Row="3" x:Name="btnRetirer" Click="btnRetirer_Click" Content="Retirer" Margin="4,0,4,4">
                 <Button.Style>
                     <Style BasedOn="{StaticResource survolBouton}" TargetType="{x:Type Button}" />
                 </Button.Style>
             </Button>
-            <Button Grid.Row="3" x:Name="btnCommander" Click="btnCommander_Click" Content="Commander" Margin="4,0,4,4">
+            <Button Grid.Row="4" x:Name="btnCommander" Click="btnCommander_Click" Content="Commander" Margin="4,0,4,4">
                 <Button.Style>
                     <Style BasedOn="{StaticResource survolBouton}" TargetType="{x:Type Button}" />
                 </Button.Style>
             </Button>
-            <Button Grid.Row="4" x:Name="btnHistorique" Click="btnHistorique_Click" Content="Historique" Margin="4,0,4,4">
+            <Button x:Name="btnHistorique" Click="btnHistorique_Click" Content="Historique des commandes" Margin="4,0,4,4" Grid.Row="5">
                 <Button.Style>
                     <Style BasedOn="{StaticResource survolBouton}" TargetType="{x:Type Button}" />
                 </Button.Style>
             </Button>
-            <Button Grid.Row="5" x:Name="btnRetour" Click="btnRetour_Click" Content="Retour" Margin="4,0,4,4">
+            <Button Grid.Row="6" x:Name="btnRetour" Click="btnRetour_Click" Content="Retour" Margin="4,0,4,4">
                 <Button.Style>
                     <Style BasedOn="{StaticResource survolBouton}" TargetType="{x:Type Button}" />
                 </Button.Style>
@@ -184,6 +198,7 @@
                 <RowDefinition Height="20"/>
                 <RowDefinition Height="60"/>
                 <RowDefinition Height="*"/>
+                <RowDefinition Height="50"/>
                 <RowDefinition Height="20"/>
             </Grid.RowDefinitions>
             <WrapPanel Grid.Row="2" Grid.Column ="1" Orientation="Vertical" Margin="10,10,10,10" x:Name="WP" />
@@ -207,12 +222,12 @@
                         </Button>
                     </StackPanel>
                 </GroupBox>
-                <Button Grid.Row="1" Grid.Column="1" Content="Afficher les recettes non-disponibles"
-                        x:Name="btnRecetteInd" Margin="10,10,10,10" VerticalAlignment="Stretch" HorizontalAlignment="Stretch">
+                <Button Grid.Row="1" Grid.Column="1" Content="Afficher les recettes non-disponibles" x:Name="btnRecetteInd" Click="btnRecetteInd_Click" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Margin="20,10,20,10" >
                     <Button.Style>
                         <Style BasedOn="{StaticResource survolBouton}" TargetType="{x:Type Button}" />
                     </Button.Style>
                 </Button>
+                <Grid/>
             </Grid>
         </Grid>
     </Grid>
