@@ -1,0 +1,331 @@
+[{
+  "_id": {
+    "$oid": "619fed16ed2785bdc3543998"
+  },
+  "Items": [
+    {
+      "_id": {
+        "$oid": "619fed07ed2785bdc3543997"
+      },
+      "Nom": "frtite",
+      "Ingredients": [
+        {
+          "Nom": "Patate",
+          "Quantite": 1
+        }
+      ],
+      "Prix": "12",
+      "Categorie": 1
+    },
+    {
+      "_id": {
+        "$oid": "619fed07ed2785bdc3543997"
+      },
+      "Nom": "frtite",
+      "Ingredients": [
+        {
+          "Nom": "Patate",
+          "Quantite": 1
+        }
+      ],
+      "Prix": "12",
+      "Categorie": 1
+    },
+    {
+      "_id": {
+        "$oid": "619fed07ed2785bdc3543997"
+      },
+      "Nom": "frtite",
+      "Ingredients": [
+        {
+          "Nom": "Patate",
+          "Quantite": 1
+        }
+      ],
+      "Prix": "12",
+      "Categorie": 1
+    },
+    {
+      "_id": {
+        "$oid": "619fed07ed2785bdc3543997"
+      },
+      "Nom": "frtite",
+      "Ingredients": [
+        {
+          "Nom": "Patate",
+          "Quantite": 1
+        }
+      ],
+      "Prix": "12",
+      "Categorie": 1
+    },
+    {
+      "_id": {
+        "$oid": "619fed07ed2785bdc3543997"
+      },
+      "Nom": "frtite",
+      "Ingredients": [
+        {
+          "Nom": "Patate",
+          "Quantite": 1
+        }
+      ],
+      "Prix": "12",
+      "Categorie": 1
+    },
+    {
+      "_id": {
+        "$oid": "619fed07ed2785bdc3543997"
+      },
+      "Nom": "frtite",
+      "Ingredients": [
+        {
+          "Nom": "Patate",
+          "Quantite": 1
+        }
+      ],
+      "Prix": "12",
+      "Categorie": 1
+    },
+    {
+      "_id": {
+        "$oid": "619fed07ed2785bdc3543997"
+      },
+      "Nom": "frtite",
+      "Ingredients": [
+        {
+          "Nom": "Patate",
+          "Quantite": 1
+        }
+      ],
+      "Prix": "12",
+      "Categorie": 1
+    },
+    {
+      "_id": {
+        "$oid": "619fed07ed2785bdc3543997"
+      },
+      "Nom": "frtite",
+      "Ingredients": [
+        {
+          "Nom": "Patate",
+          "Quantite": 1
+        }
+      ],
+      "Prix": "12",
+      "Categorie": 1
+    },
+    {
+      "_id": {
+        "$oid": "619fed07ed2785bdc3543997"
+      },
+      "Nom": "frtite",
+      "Ingredients": [
+        {
+          "Nom": "Patate",
+          "Quantite": 1
+        }
+      ],
+      "Prix": "12",
+      "Categorie": 1
+    }
+  ],
+  "Total": "108",
+  "DateHeure": {
+    "$date": "2021-11-25T20:07:50.155Z"
+  }
+},{
+  "_id": {
+    "$oid": "61aeb3a23671d080e26c3120"
+  },
+  "Items": [
+    {
+      "_id": {
+        "$oid": "619fed07ed2785bdc3543997"
+      },
+      "Nom": "frtite",
+      "Ingredients": [
+        {
+          "Nom": "Patate",
+          "Quantite": 1
+        }
+      ],
+      "Prix": "12",
+      "Categorie": 1
+    }
+  ],
+  "Total": "12",
+  "DateHeure": {
+    "$date": "2021-12-07T01:06:42.611Z"
+  }
+},{
+  "_id": {
+    "$oid": "61b155d90339fb782f34fab6"
+  },
+  "Items": [
+    {
+      "_id": {
+        "$oid": "61b155820339fb782f34fab5"
+      },
+      "Nom": "Burger de saumon",
+      "Ingredients": [
+        {
+          "Nom": "Tomate",
+          "Quantite": 1
+        },
+        {
+          "Nom": "Boulette de saumon",
+          "Quantite": 1
+        },
+        {
+          "Nom": "Mayonnaise",
+          "Quantite": 1
+        },
+        {
+          "Nom": "Pain",
+          "Quantite": 2
+        }
+      ],
+      "Prix": "25",
+      "Categorie": 4
+    },
+    {
+      "_id": {
+        "$oid": "61b155820339fb782f34fab5"
+      },
+      "Nom": "Burger de saumon",
+      "Ingredients": [
+        {
+          "Nom": "Tomate",
+          "Quantite": 1
+        },
+        {
+          "Nom": "Boulette de saumon",
+          "Quantite": 1
+        },
+        {
+          "Nom": "Mayonnaise",
+          "Quantite": 1
+        },
+        {
+          "Nom": "Pain",
+          "Quantite": 2
+        }
+      ],
+      "Prix": "25",
+      "Categorie": 4
+    }
+  ],
+  "Total": "50",
+  "DateHeure": {
+    "$date": "2021-12-09T01:03:21.715Z"
+  }
+},{
+  "_id": {
+    "$oid": "61b155eb0339fb782f34fab7"
+  },
+  "Items": [
+    {
+      "_id": {
+        "$oid": "61b155820339fb782f34fab5"
+      },
+      "Nom": "Burger de saumon",
+      "Ingredients": [
+        {
+          "Nom": "Tomate",
+          "Quantite": 1
+        },
+        {
+          "Nom": "Boulette de saumon",
+          "Quantite": 1
+        },
+        {
+          "Nom": "Mayonnaise",
+          "Quantite": 1
+        },
+        {
+          "Nom": "Pain",
+          "Quantite": 2
+        }
+      ],
+      "Prix": "25",
+      "Categorie": 4
+    },
+    {
+      "_id": {
+        "$oid": "61b155820339fb782f34fab5"
+      },
+      "Nom": "Burger de saumon",
+      "Ingredients": [
+        {
+          "Nom": "Tomate",
+          "Quantite": 1
+        },
+        {
+          "Nom": "Boulette de saumon",
+          "Quantite": 1
+        },
+        {
+          "Nom": "Mayonnaise",
+          "Quantite": 1
+        },
+        {
+          "Nom": "Pain",
+          "Quantite": 2
+        }
+      ],
+      "Prix": "25",
+      "Categorie": 4
+    }
+  ],
+  "Total": "50",
+  "DateHeure": {
+    "$date": "2021-12-09T01:03:39.821Z"
+  }
+},{
+  "_id": {
+    "$oid": "61b23a213e4d2d53f9138612"
+  },
+  "Items": [
+    {
+      "_id": {
+        "$oid": "61b2391c3e4d2d53f9138610"
+      },
+      "Nom": "Burger classique",
+      "Ingredients": [
+        {
+          "Nom": "boeuf",
+          "Quantite": 1
+        },
+        {
+          "Nom": "Pain",
+          "Quantite": 2
+        }
+      ],
+      "Prix": "10",
+      "Categorie": 2
+    },
+    {
+      "_id": {
+        "$oid": "61b2391c3e4d2d53f9138610"
+      },
+      "Nom": "Burger classique",
+      "Ingredients": [
+        {
+          "Nom": "boeuf",
+          "Quantite": 1
+        },
+        {
+          "Nom": "Pain",
+          "Quantite": 2
+        }
+      ],
+      "Prix": "10",
+      "Categorie": 2
+    }
+  ],
+  "Total": "20",
+  "DateHeure": {
+    "$date": "2021-12-09T17:17:21.827Z"
+  }
+}]

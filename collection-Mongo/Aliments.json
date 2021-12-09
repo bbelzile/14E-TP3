@@ -1,0 +1,101 @@
+[{
+  "_id": {
+    "$oid": "619bea626c7818bd8fd621cc"
+  },
+  "Nom": "Patate",
+  "Quantite": 90,
+  "Unite": "legume",
+  "ExpireLe": {
+    "$date": "2021-11-27T05:00:00Z"
+  }
+},{
+  "_id": {
+    "$oid": "619c484da528316f8bb0348f"
+  },
+  "Nom": "Tomate",
+  "Quantite": 96,
+  "Unite": "unite",
+  "ExpireLe": {
+    "$date": "2021-11-30T05:00:00Z"
+  }
+},{
+  "_id": {
+    "$oid": "61a2d1848b3465334e9ce878"
+  },
+  "Nom": "boeuf",
+  "Quantite": 11,
+  "Unite": "boulette",
+  "ExpireLe": {
+    "$date": "2021-12-24T05:00:00Z"
+  }
+},{
+  "_id": {
+    "$oid": "61a2d1968b3465334e9ce879"
+  },
+  "Nom": "Pain",
+  "Quantite": 28,
+  "Unite": "tranche",
+  "ExpireLe": {
+    "$date": "2022-01-19T05:00:00Z"
+  }
+},{
+  "_id": {
+    "$oid": "61a2d1ac8b3465334e9ce87a"
+  },
+  "Nom": "Tomates",
+  "Quantite": 5,
+  "Unite": "boite",
+  "ExpireLe": {
+    "$date": "2021-12-22T05:00:00Z"
+  }
+},{
+  "_id": {
+    "$oid": "61a2d1c18b3465334e9ce87b"
+  },
+  "Nom": "Poivre",
+  "Quantite": 20,
+  "Unite": "sac",
+  "ExpireLe": {
+    "$date": "2022-01-26T05:00:00Z"
+  }
+},{
+  "_id": {
+    "$oid": "61a2d1d48b3465334e9ce87c"
+  },
+  "Nom": "Mayonnaise",
+  "Quantite": 6,
+  "Unite": "pot",
+  "ExpireLe": {
+    "$date": "2022-01-05T05:00:00Z"
+  }
+},{
+  "_id": {
+    "$oid": "61b1531b967ad731d5e4f712"
+  },
+  "Nom": "Boulette de saumon",
+  "Quantite": 0,
+  "Unite": "boulette",
+  "ExpireLe": {
+    "$date": "2021-12-11T05:00:00Z"
+  }
+},{
+  "_id": {
+    "$oid": "61b23a993e4d2d53f9138613"
+  },
+  "Nom": "Fromage",
+  "Quantite": 40,
+  "Unite": "brique",
+  "ExpireLe": {
+    "$date": "2021-12-25T05:00:00Z"
+  }
+},{
+  "_id": {
+    "$oid": "61b23ab03e4d2d53f9138614"
+  },
+  "Nom": "Sauce",
+  "Quantite": 50,
+  "Unite": "Sachet",
+  "ExpireLe": {
+    "$date": "2021-12-25T05:00:00Z"
+  }
+}]

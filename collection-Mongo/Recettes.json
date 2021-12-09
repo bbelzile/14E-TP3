@@ -1,0 +1,149 @@
+[{
+  "_id": {
+    "$oid": "619fed07ed2785bdc3543997"
+  },
+  "Nom": "Frite",
+  "Ingredients": [
+    {
+      "Nom": "Patate",
+      "Quantite": 1
+    }
+  ],
+  "Prix": "12",
+  "Categorie": 1
+},{
+  "_id": {
+    "$oid": "61a2d20d8b3465334e9ce87d"
+  },
+  "Nom": "Big-Mac",
+  "Ingredients": [
+    {
+      "Nom": "Tomate",
+      "Quantite": 1
+    },
+    {
+      "Nom": "Pain",
+      "Quantite": 3
+    },
+    {
+      "Nom": "Mayonnaise",
+      "Quantite": 1
+    },
+    {
+      "Nom": "boeuf",
+      "Quantite": 1
+    }
+  ],
+  "Prix": "12",
+  "Categorie": 2
+},{
+  "_id": {
+    "$oid": "61b155820339fb782f34fab5"
+  },
+  "Nom": "Burger de saumon",
+  "Ingredients": [
+    {
+      "Nom": "Tomate",
+      "Quantite": 1
+    },
+    {
+      "Nom": "Boulette de saumon",
+      "Quantite": 1
+    },
+    {
+      "Nom": "Mayonnaise",
+      "Quantite": 1
+    },
+    {
+      "Nom": "Pain",
+      "Quantite": 2
+    }
+  ],
+  "Prix": "25",
+  "Categorie": 4
+},{
+  "_id": {
+    "$oid": "61b2391c3e4d2d53f9138610"
+  },
+  "Nom": "Burger classique",
+  "Ingredients": [
+    {
+      "Nom": "boeuf",
+      "Quantite": 1
+    },
+    {
+      "Nom": "Pain",
+      "Quantite": 2
+    }
+  ],
+  "Prix": "10",
+  "Categorie": 2
+},{
+  "_id": {
+    "$oid": "61b239a03e4d2d53f9138611"
+  },
+  "Nom": "Burger vegé",
+  "Ingredients": [
+    {
+      "Nom": "Tomate",
+      "Quantite": 1
+    },
+    {
+      "Nom": "Pain",
+      "Quantite": 2
+    },
+    {
+      "Nom": "Mayonnaise",
+      "Quantite": 1
+    }
+  ],
+  "Prix": "5",
+  "Categorie": 0
+},{
+  "_id": {
+    "$oid": "61b23b0d3e4d2d53f9138615"
+  },
+  "Nom": "Poutine",
+  "Ingredients": [
+    {
+      "Nom": "Fromage",
+      "Quantite": 1
+    },
+    {
+      "Nom": "Patate",
+      "Quantite": 2
+    },
+    {
+      "Nom": "Sauce",
+      "Quantite": 1
+    }
+  ],
+  "Prix": "5",
+  "Categorie": 0
+},{
+  "_id": {
+    "$oid": "61b23b273e4d2d53f9138616"
+  },
+  "Nom": "Extra fromage",
+  "Ingredients": [
+    {
+      "Nom": "Fromage",
+      "Quantite": 1
+    }
+  ],
+  "Prix": "6",
+  "Categorie": 0
+},{
+  "_id": {
+    "$oid": "61b23b443e4d2d53f9138617"
+  },
+  "Nom": "Extra sauce",
+  "Ingredients": [
+    {
+      "Nom": "Sauce",
+      "Quantite": 1
+    }
+  ],
+  "Prix": "15",
+  "Categorie": 0
+}]
