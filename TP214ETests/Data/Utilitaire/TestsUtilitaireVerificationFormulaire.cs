@@ -154,5 +154,22 @@ namespace TP214E.Data.Tests
 
             Assert.IsFalse(resultat);
         }
+
+        [ExpectedException(typeof(ArgumentException), "Un champ du formulaire est vide.")]
+        [TestMethod()]
+        public void VerificationSiValeurPasNulleLanceErreurSiValeurNulle()
+        {
+            UtilitaireVerificationFormulaire.VerificationSiValeurPasNulle(null);
+        }
+
+        [TestMethod()]
+        public void VerificationSiValeurPasNulleRetourneTrueSiValeurNonNulle()
+        {
+            int entierPositif = -1;
+
+            bool resultat = UtilitaireVerificationFormulaire.VerificationSiValeurPasNulle(entierPositif);
+
+            Assert.IsTrue(resultat);
+        }
     }
 }

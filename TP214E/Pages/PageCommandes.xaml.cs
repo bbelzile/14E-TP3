@@ -102,8 +102,8 @@ namespace TP214E.Pages
             nouveauBouton.Content = pRecette.Nom;
             nouveauBouton.Name = "Bouton" + pRecette.Id;
             nouveauBouton.Margin = new Thickness(3);
-            nouveauBouton.Height = 40;
-            nouveauBouton.Width = 100;
+            nouveauBouton.Height = 60;
+            nouveauBouton.Width = 150;
             nouveauBouton.Tag = pRecette;
             if (quantitePossible == 0)
             {
@@ -257,7 +257,13 @@ namespace TP214E.Pages
             recetteTriees = SelectionTrieRecette();
 
             _recettesPossibles = recetteTriees;
+
             RemplirAffichageRecette(_recettesPossibles);
+
+            if (_afficher)
+            {
+                AfficherRecettesIndispo();
+            }
         }
 
         private Dictionary<Recette, int> SelectionTrieRecette()

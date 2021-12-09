@@ -73,7 +73,7 @@ namespace TP214E.Data
             }
             else
             {
-                throw new Exception("Un champ du formulaire est vide.");
+                throw new ArgumentException("Un champ du formulaire est vide.");
             }
         }
     }
