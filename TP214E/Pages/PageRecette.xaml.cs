@@ -161,7 +161,7 @@ namespace TP214E.Pages
             gboChampIngredient.Header = message;
         }
 
-        public void ViderChampsIngredient()
+        public void ViderChampsIngredient()//test badge pour github
         {
             cboAliment.SelectedIndex = -1;
             txtQuantite.Text = "0";
